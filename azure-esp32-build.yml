@@ -29,6 +29,8 @@ steps:
     pipeline: '10'
     buildVersionToDownload: 'latest'
     downloadType: 'specific'
+    artifactName: 'Artifact'
+    itemPattern: '**'
     downloadPath: '/opt/makeip/bin'
 
 - script: |
