@@ -10,7 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-
 - script: |
     echo Creating base folder
     sudo mkdir /opt/riscv
@@ -42,6 +41,7 @@ steps:
     sudo apt-get update
     sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40 mkisofs
   displayName: 'Setup prerequisites and run make'
+  enabled: false
 
 - script: |
     echo $PATH
@@ -50,6 +50,7 @@ steps:
     export PATH=$PATH:/opt/makeip/bin
     make ci
   displayName: 'Build all (make in root)'
+  enabled: false
 
 - task: CopyFiles@2
   inputs:
@@ -59,9 +60,11 @@ steps:
       test/obj/*.GI0
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
+  enabled: false
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Artifacts'
     publishLocation: 'Container'
+  enabled: false
