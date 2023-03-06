@@ -41,7 +41,7 @@ steps:
     riscv32-unknown-elf-gcc -v
     echo Installing packages
     sudo apt-get update
-    sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40 mkisofs
+    sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40 mkisofs gcc-sh4-linux-gnu
   displayName: 'Setup prerequisites and run make'
 
 - script: |
