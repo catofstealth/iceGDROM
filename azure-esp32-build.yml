@@ -11,10 +11,16 @@ pool:
 
 steps:
 - script: |
+    echo Installing packages
     sudo apt-get install yosys arachne-pnr icestorm
+    echo Creating base folder
     sudo mkdir /opt/riscv
+    echo Downloading prebuild binaries
     wget https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz | tar -xzf -C /opt/riscv/
+    echo Adding Path
     export PATH=$PATH:/opt/riscv/bin
+    echo $PATH
+    echo Testing binaries
     riscv32-unknown-elf-gcc -v
   displayName: 'Setup prerequisites'
 
