@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- esp32
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    sudo apt-get install yosys arachne-pnr icestorm
+    sudo mkdir /opt/riscv
+    wget https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz | tar -xzf -C /opt/riscv/
+    export PATH=$PATH:/opt/riscv/bin
+    riscv32-unknown-elf-gcc -v
+  displayName: 'Setup prerequisites'
+
+- script: |
+    cd rv32
+    make rv32
+  displayName: 'Build riscv32 core (make in rv32)'
+
+- script: |
+    cd ..
+    make
+  displayName: 'Build all (make in root)'
