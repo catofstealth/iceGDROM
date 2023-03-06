@@ -25,19 +25,20 @@ steps:
     echo Installing packages
     sudo apt-get update
     sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40
-    make
   displayName: 'Setup prerequisites and run make'
 
 - script: |
     echo Adding Path
     export PATH=$PATH:/opt/riscv/bin
-    make
+    make ci
   displayName: 'Build all (make in root)'
 
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
-    Contents: '**'
+    Contents: |
+      fpga/obj/gdrom_hw_emulator.bin
+      test/obj/*.GI0
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
 

@@ -22,6 +22,8 @@ AVRDUDE_PORT ?= /dev/ttyUSB1
 
 all : rv32_main.hex pmem.hex
 
+ci : rv32_main.hex pmem.hex
+
 flash : pmem.hex
 
 upload : rv32_main.hex
