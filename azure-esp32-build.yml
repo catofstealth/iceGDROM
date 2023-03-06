@@ -28,6 +28,5 @@ steps:
   displayName: 'Setup prerequisites'
 
 - script: |
-    cd ..
     make
   displayName: 'Build all (make in root)'
