@@ -28,7 +28,9 @@ steps:
   displayName: 'Setup prerequisites'
 
 - script: |
+    ls -al
     cd rv32
+    ls -al
     make rv32
   displayName: 'Build riscv32 core (make in rv32)'
 
