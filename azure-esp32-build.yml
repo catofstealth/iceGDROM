@@ -25,9 +25,12 @@ steps:
     echo Installing packages
     sudo apt-get update
     sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40
-  displayName: 'Setup prerequisites'
+    make
+  displayName: 'Setup prerequisites and run make'
 
 - script: |
+    echo Adding Path
+    export PATH=$PATH:/opt/riscv/bin
     make
   displayName: 'Build all (make in root)'
 
