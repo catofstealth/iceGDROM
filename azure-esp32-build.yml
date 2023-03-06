@@ -28,9 +28,9 @@ steps:
     pipeline: '10'
     buildVersionToDownload: 'latest'
     downloadType: 'specific'
-    artifactName: 'Artifact'
+    artifactName: 'bin'
     itemPattern: 'makeip'
-    downloadPath: '/opt/makeip/bin'
+    downloadPath: '/opt/makeip/'
 
 - script: |
     echo Downloading prebuild binaries
