@@ -14,7 +14,7 @@ steps:
     echo Creating base folder
     sudo mkdir /opt/riscv
     sudo mkdir /opt/makeip
-    sudo ls -al /opt/riscv
+    sudo ls -al /opt
     echo Adding Path
     export PATH=$PATH:/opt/riscv/bin
     export PATH=$PATH:/opt/makeip/bin
@@ -33,6 +33,8 @@ steps:
     downloadPath: '/opt/makeip/'
 
 - script: |
+    sudo ls -al /opt/makeip/bin/
+    sudo chmod +x /opt/makeip/bin/makeip
     echo Downloading prebuild binaries
     sudo wget -c https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz -O - | sudo tar -xz -C /opt/riscv
     echo Testing binaries
