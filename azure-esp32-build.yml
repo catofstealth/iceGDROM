@@ -12,7 +12,10 @@ pool:
 steps:
 - script: |
     echo Installing packages
-    sudo apt-get install yosys arachne-pnr icestorm
+    sudo apt-get update
+    sudo apt-get install yosys 
+    sudo apt-get install arachne-pnr
+    sudo apt-get install icestorm
     echo Creating base folder
     sudo mkdir /opt/riscv
     echo Downloading prebuild binaries
