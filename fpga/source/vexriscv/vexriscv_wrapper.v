@@ -120,7 +120,7 @@ module vexriscv_wrapper (
 
    generate
       if (mem_init == "") begin : no_initdata
-	 ;
+	 /* Not implemented? */
       end else begin : yes_initdata
 	 initial $readmemh(mem_init, ram);
       end
