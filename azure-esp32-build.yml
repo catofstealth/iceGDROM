@@ -28,11 +28,6 @@ steps:
   displayName: 'Setup prerequisites'
 
 - script: |
-    cd rv32
-    make
-  displayName: 'Build riscv32 core (make in rv32)'
-
-- script: |
     cd ..
     make
   displayName: 'Build all (make in root)'
