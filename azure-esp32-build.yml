@@ -29,7 +29,7 @@ steps:
     buildVersionToDownload: 'latest'
     downloadType: 'specific'
     artifactName: 'bin'
-    itemPattern: 'makeip'
+    itemPattern: '**'
     downloadPath: '/opt/makeip/'
 
 - script: |
