@@ -10,6 +10,18 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+- script: |
+    echo Creating base folder
+    sudo mkdir /opt/riscv
+    sudo mkdir /opt/makeip
+    sudo ls -al /opt/riscv
+    echo Adding Path
+    export PATH=$PATH:/opt/riscv/bin
+    export PATH=$PATH:/opt/makeip/bin
+    echo $PATH
+  displayName: 'Setup folders and paths'
+
 - task: DownloadBuildArtifacts@1
   inputs:
     buildType: 'specific'
@@ -17,30 +29,25 @@ steps:
     pipeline: '10'
     buildVersionToDownload: 'latest'
     downloadType: 'specific'
+    artifactName: 'Artifact'
     itemPattern: 'makeip'
-    downloadPath: '$(System.SourcesDirectory)/tests/source'
-
+    downloadPath: '/opt/makeip/bin'
 
 - script: |
-    echo Creating base folder
-    sudo mkdir /opt/
-    sudo mkdir /opt/riscv
-    sudo ls -al /opt/riscv
-    echo Adding Path
-    export PATH=$PATH:/opt/riscv/bin
-    echo $PATH
     echo Downloading prebuild binaries
     sudo wget -c https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz -O - | sudo tar -xz -C /opt/riscv
     echo Testing binaries
     riscv32-unknown-elf-gcc -v
     echo Installing packages
     sudo apt-get update
-    sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40 makeip makeisofs
+    sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40 mkisofs
   displayName: 'Setup prerequisites and run make'
 
 - script: |
+    echo $PATH
     echo Adding Path
     export PATH=$PATH:/opt/riscv/bin
+    export PATH=$PATH:/opt/makeip/bin
     make ci
   displayName: 'Build all (make in root)'
 
