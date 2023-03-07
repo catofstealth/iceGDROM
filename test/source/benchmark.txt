@@ -4,7 +4,7 @@ Device Info   : 0000 GD-ROM1/1
 Area Symbols  : JUE
 Peripherals   : E000F10
 Product No    : T0000
-Version       : 1.0
+Version       : V1.000
 Release Date  : 20160901
 Boot Filename : BENCHMARK.BIN
 SW Maker Name : Marcus Comstedt
