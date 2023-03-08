@@ -63,6 +63,8 @@ steps:
     echo Adding Path
     export PATH=$PATH:/opt/riscv/bin
     export PATH=$PATH:/opt/makeip/bin
+    export PATH=$PATH:/opt/toolchain/sh-elf/bin
+    export PATH=$PATH:/opt/toolchain/arm-eabi/bin
     make ci
   displayName: 'Build all (make in root)'
 
