@@ -15,7 +15,7 @@ ARMCFLAGS ?= -O2 -std=c99
 TOOLS_DIR = ../../tools/obj
 
 SHCC = sh-elf-gcc -ml -m4-single-only -ffreestanding
-ARMCC = arm-elf-gcc -mlittle-endian -mcpu=arm7di -ffreestanding
+ARMCC = arm-eabi-gcc -mlittle-endian -mcpu=arm7di -ffreestanding
 
 all :
 
@@ -93,7 +93,7 @@ arm_sound_code.elf : arm_startup.o arm_sound_code.o
 	$(ARMCC) -Wl,-Ttext,0 -nostdlib -nostartfiles -o $@ $^ -lgcc
 
 arm_sound_code.bin : arm_sound_code.elf
-	arm-elf-objcopy -S -R .stack -O binary $< $@
+	arm-eabi-objcopy -S -R .stack -O binary $< $@
 
 arm_sound_code.h : arm_sound_code.bin
 	od -v -An -tx4 -w24 --endian=little $< | sed -e 's/[0-9a-fA-F]\+/0x&,/g' > $@
