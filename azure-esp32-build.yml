@@ -67,6 +67,7 @@ steps:
     export PATH=$PATH:/opt/makeip/bin
     export PATH=$PATH:/opt/toolchain/sh-elf/bin
     export PATH=$PATH:/opt/toolchain/arm-eabi/bin
+    mkdir $(Build.ArtifactStagingDirectory)/tools
     make ci
   displayName: 'Build all (make in root)'
 
@@ -78,6 +79,14 @@ steps:
       test/obj/*.GI0
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      tools/*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/tools'
+    CleanTargetFolder: false
 
 - task: PublishBuildArtifacts@1
   inputs:
