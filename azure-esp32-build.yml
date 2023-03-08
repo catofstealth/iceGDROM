@@ -77,7 +77,7 @@ steps:
     Contents: |
       fpga/obj/gdrom_hw_emulator.bin
       test/obj/*.GI0
-      tools/**
+      tools/obj/makegdimg
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
 
