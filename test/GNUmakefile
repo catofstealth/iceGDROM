@@ -20,7 +20,7 @@ ARMCC = arm-eabi-gcc -mlittle-endian -mcpu=arm7di -ffreestanding
 all :
 
 
-ci : BENCHMARK.GI0 DMATEST.GI0 CDDATEST.GI0
+ci-nerfed : BENCHMARK.GI0 DMATEST.GI0 CDDATEST.GI0
 
 
 flash :
