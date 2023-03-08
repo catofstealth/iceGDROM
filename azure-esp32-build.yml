@@ -77,16 +77,9 @@ steps:
     Contents: |
       fpga/obj/gdrom_hw_emulator.bin
       test/obj/*.GI0
+      tools/**
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
-    Contents: |
-      tools/*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/tools'
-    CleanTargetFolder: false
 
 - task: PublishBuildArtifacts@1
   inputs:
