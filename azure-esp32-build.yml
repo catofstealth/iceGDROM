@@ -48,7 +48,9 @@ steps:
 
 - script: |
     sudo ls -al /opt/makeip/bin/
-    sudo chmod +x /opt/makeip/bin/makeip
+    sudo chmod +x /opt/makeip/bin/*
+    sudo chmod +x /opt/toolchain/sh-elf/bin/*
+    sudo chmod +x /opt/toolchain/arm-eabi/bin/*
     echo Downloading prebuild binaries
     sudo wget -c https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz -O - | sudo tar -xz -C /opt/riscv
     echo Testing binaries
