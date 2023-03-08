@@ -18,8 +18,21 @@ steps:
     echo Adding Path
     export PATH=$PATH:/opt/riscv/bin
     export PATH=$PATH:/opt/makeip/bin
+    export PATH=$PATH:/opt/toolchain/sh-elf/bin
+    export PATH=$PATH:/opt/toolchain/arm-eabi/bin
     echo $PATH
   displayName: 'Setup folders and paths'
+
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'specific'
+    project: '4a84c380-a821-47d4-b896-7219ca36222f'
+    pipeline: '11'
+    buildVersionToDownload: 'latest'
+    downloadType: 'single'
+    artifactName: 'toolchain'
+    downloadPath: '/opt'
+  displayName: 'Download Cross Compiler Toolchain for SH4/ARM'
 
 - task: DownloadBuildArtifacts@1
   inputs:
@@ -31,6 +44,7 @@ steps:
     artifactName: 'bin'
     itemPattern: '**'
     downloadPath: '/opt/makeip/'
+  displayName: 'Download MakeIP tool for DC'
 
 - script: |
     sudo ls -al /opt/makeip/bin/
