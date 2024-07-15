@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- esp32
+- agent-pipeline
 
 pool: 'Linux RISC V'
 
