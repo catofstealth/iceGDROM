@@ -6,8 +6,7 @@
 trigger:
 - esp32
 
-pool:
-  vmImage: ubuntu-latest
+pool: 'Linux RISC V'
 
 steps:
 - script: |
