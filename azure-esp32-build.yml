@@ -11,24 +11,21 @@ pool: 'Linux RISC V'
 steps:
 - script: |
     echo Creating base folder
-    whoami
-    sudo mkdir /opt/riscv
-    sudo mkdir /opt/makeip
-    sudo ls -al /opt
+    ls -al /opt
   displayName: 'Setup folders'
 
 - script: |
-    sudo ls -al /opt/makeip/bin/
-    sudo chmod +x /opt/makeip/bin/*
+    ls -al /opt/makeip/bin/
+    chmod +x /opt/makeip/bin/*
     sudo chmod +x /opt/toolchain/sh-elf/bin/*
     sudo chmod +x /opt/toolchain/arm-eabi/bin/*
     echo Downloading prebuild binaries
-    sudo wget -c https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz -O - | sudo tar -xz -C /opt/riscv
+    wget -c https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz -O - | sudo tar -xz -C /opt/riscv
     echo Testing binaries
     riscv32-unknown-elf-gcc -v
-    echo Installing packages
-    sudo apt-get update
-    sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40 mkisofs gcc-sh4-linux-gnu
+    # echo Installing packages
+    # sudo apt-get update
+    # sudo apt-get install yosys arachne-pnr fpga-icestorm nextpnr-ice40 mkisofs gcc-sh4-linux-gnu
   displayName: 'Setup prerequisites'
 
 - script: |
