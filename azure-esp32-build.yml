@@ -11,6 +11,7 @@ pool: 'Linux RISC V'
 steps:
 - script: |
     echo Creating base folder
+    whoami
     sudo mkdir /opt/riscv
     sudo mkdir /opt/makeip
     sudo ls -al /opt
@@ -38,6 +39,7 @@ steps:
     export PATH=$PATH:/opt/toolchain/arm-eabi/bin
     echo $PATH
   displayName: 'Setup paths'
+  enabled: false
 
 - task: DownloadBuildArtifacts@1
   inputs:
