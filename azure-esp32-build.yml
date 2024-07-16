@@ -81,6 +81,7 @@ steps:
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
+      GNUmakefile
       fpga/obj/gdrom_hw_emulator.bin
       test/obj/*.GI0
       tools/obj/makegdimg
