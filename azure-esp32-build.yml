@@ -6,6 +6,10 @@
 trigger:
 - agent-pipeline
 
+variables:
+  installToolchain: false
+  installMakeIP: false
+
 pool: 'Linux RISC V'
 
 steps:
@@ -15,6 +19,8 @@ steps:
   displayName: 'Setup folders'
   
 - task: DownloadBuildArtifacts@1
+  displayName: 'Download Cross Compiler Toolchain for SH4/ARM'
+  condition: eq(variables.installToolchain, true)
   inputs:
     buildType: 'specific'
     project: '4a84c380-a821-47d4-b896-7219ca36222f'
@@ -23,9 +29,10 @@ steps:
     downloadType: 'single'
     artifactName: 'toolchain'
     downloadPath: '/opt'
-  displayName: 'Download Cross Compiler Toolchain for SH4/ARM'
 
 - task: DownloadBuildArtifacts@1
+  displayName: 'Download MakeIP tool for DC'
+  condition: eq(variables.installMakeIP, true)
   inputs:
     buildType: 'specific'
     project: '4a84c380-a821-47d4-b896-7219ca36222f'
@@ -35,7 +42,6 @@ steps:
     artifactName: 'bin'
     itemPattern: '**'
     downloadPath: '/opt/makeip/'
-  displayName: 'Download MakeIP tool for DC'
 
 - script: |
     ls -al /opt/makeip/bin/
