@@ -63,6 +63,9 @@ steps:
     export PATH=$PATH:/opt/toolchain/arm-eabi/bin
     echo Testing binaries
     riscv32-unknown-elf-gcc -v
+    echo $PATH
+    sh-elf-gcc -v
+    ./opt/toolchain/sh-elf/bin/sh-elf-gcc -v
   displayName: 'Setup paths'
 
 - script: |
