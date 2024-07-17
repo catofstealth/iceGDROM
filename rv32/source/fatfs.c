@@ -227,9 +227,15 @@ bool fatfs_read_rootdir()
     if (*p != 0xe5 && (p[11]&0x3f) != 0x0f) {
       DEBUG_PUTS("Entry ");
       int i;
+	    
+      //write filename to debug output
       for(i=0; i<11; i++)
 	DEBUG_PUTC(p[i]);
+      DEBUG_PUTC(".");
+      for(i=9; i<11; i++)
+        DEBUG_PUTC(p[i]);
       DEBUG_PUTC('\n');
+	    
       if (!memcmp(p, filename, 11)) {
 	DEBUG_PUTS("Found target at ");
 	if (fat32) {
