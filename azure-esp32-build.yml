@@ -65,7 +65,6 @@ steps:
     riscv32-unknown-elf-gcc -v
     echo $PATH
     sh-elf-gcc -v
-    ./opt/toolchain/sh-elf/bin/sh-elf-gcc -v
   displayName: 'Setup paths'
 
 - script: |
