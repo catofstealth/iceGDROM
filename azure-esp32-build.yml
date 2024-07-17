@@ -67,7 +67,6 @@ steps:
 
 - script: |
     mkdir $(Build.ArtifactStagingDirectory)/tools
-    make
     make ci
   displayName: 'Build all (make in root)'
 
