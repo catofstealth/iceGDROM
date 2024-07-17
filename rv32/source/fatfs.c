@@ -229,10 +229,10 @@ bool fatfs_read_rootdir()
       int i;
 	    
       //write filename to debug output
-      for(i=0; i<11; i++)
+      for(i=0; i<8; i++)
 	DEBUG_PUTC(p[i]);
       DEBUG_PUTC(".");
-      for(i=9; i<11; i++)
+      for(i=8; i<11; i++)
         DEBUG_PUTC(p[i]);
       DEBUG_PUTC('\n');
 	    
