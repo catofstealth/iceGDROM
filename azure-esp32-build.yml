@@ -47,7 +47,7 @@ steps:
     ls -al /opt/makeip/bin/
     chmod +x /opt/makeip/bin/*
     chmod +x /opt/toolchain/sh-elf/bin/*
-    chmod +x /opt/toolchain/arm-eabi/bin/*
+    # chmod +x /opt/toolchain/arm-eabi/bin/*
     # echo Downloading prebuild binaries
     # wget -c https://github.com/stnolting/riscv-gcc-prebuilt/releases/download/rv32i-4.0.0/riscv32-unknown-elf.gcc-12.1.0.tar.gz -O - | sudo tar -xz -C /opt/riscv
     # echo Installing packages
@@ -60,7 +60,7 @@ steps:
     export PATH=$PATH:/opt/riscv/bin
     export PATH=$PATH:/opt/makeip/bin
     export PATH=$PATH:/opt/toolchain/sh-elf/bin
-    export PATH=$PATH:/opt/toolchain/arm-eabi/bin
+    # export PATH=$PATH:/opt/toolchain/arm-eabi/bin
     echo Testing binaries
     riscv32-unknown-elf-gcc -v
     echo $PATH
