@@ -75,7 +75,7 @@ steps:
     export PATH=$PATH:/opt/makeip/bin
     # export PATH=$PATH:/opt/toolchain/sh-elf/bin
     # export PATH=$PATH:/opt/toolchain/sh-elf/libexec/gcc/sh-elf/9.3.0
-    # export PATH=$PATH:/opt/toolchain/arm-eabi/bin
+    export PATH=$PATH:/opt/toolchains/dc/arm-eabi/bin
     
     # configure environment vars for build tools
     source /opt/toolchains/dc/kos/doc/environ.sh 
