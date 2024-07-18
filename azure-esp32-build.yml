@@ -76,6 +76,9 @@ steps:
     # export PATH=$PATH:/opt/toolchain/sh-elf/bin
     # export PATH=$PATH:/opt/toolchain/sh-elf/libexec/gcc/sh-elf/9.3.0
     # export PATH=$PATH:/opt/toolchain/arm-eabi/bin
+    
+    # configure environment vars for build tools
+    source /opt/toolchains/dc/kos/doc/environ.sh 
     echo Testing binaries
     riscv32-unknown-elf-gcc -v
     echo $PATH
