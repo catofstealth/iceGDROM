@@ -22,7 +22,7 @@ static uint8_t imgfile_skip_before, imgfile_skip_after;
 static uint16_t imgfile_sector_size, imgfile_sector_completed;
 bool imgfile_need_to_read;
 
-void printLinePrefix (unsigned int number)
+void printLinePrefix (unsigned long number)
 {
   char paddedString[] = "0000000";
   char numString [8];
@@ -34,30 +34,35 @@ void printLinePrefix (unsigned int number)
 
   if(number < 10)
   {
-    DEBUG_PUTS("00000");
+    DEBUG_PUTS("000000");
   }
 
   if(number < 100 && number >= 10)
   {
-    DEBUG_PUTS("0000");
+    DEBUG_PUTS("00000");
   }
 
   if(number < 1000 && number >= 100)
   {
-    DEBUG_PUTS("000");
+    DEBUG_PUTS("0000");
   }
 
   if(number < 10000 && number >= 1000)
   {
-    DEBUG_PUTS("00");
+    DEBUG_PUTS("000");
   }
 
   if(number < 100000 && number >= 10000)
   {
-    DEBUG_PUTS("0");
+    DEBUG_PUTS("00");
   }
   
-  DEBUG_PUTX(number);  
+  if(number < 1000000 && number >= 100000)
+  {
+    DEBUG_PUTS("0");
+  }
+
+  DEBUG_PUTX(number);  //write as hex?
   DEBUG_PUTS("] ");
 }
 
@@ -79,7 +84,7 @@ bool imgfile_init()
 
   DEBUG_PUTS("ImgFile Initialised\n");
   
-  unsigned int x;
+  unsigned long x;
   char linePrefix [10];
   //sprintf(0,"00000000%d",linePrefix);
   const unsigned char * const test = (unsigned char*)&toc[0];
@@ -88,7 +93,7 @@ bool imgfile_init()
   //DEBUG_PUTX(sizeOfToc);
   printLinePrefix(0);
   
-  for(x = 0; x < 256; x++)
+  for(x = 0xACA10; x < 0xACAA0; x++)
   {
     DEBUG_PUTX(test[x]);
     DEBUG_PUTS(" ");
