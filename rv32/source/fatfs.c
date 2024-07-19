@@ -344,7 +344,7 @@ bool fatfs_read_header(void *buf, uint16_t size, uint8_t blk)
   if (!data_block)
     return false;
   DEBUG_PUTS("fatfs_read_header : data_block\n");
-  DEBUG_PUTX(data_block)
+  DEBUG_PUTX((uint8_t)data_block);
   memcpy(buf, data_block, size);
   return true;
 }
