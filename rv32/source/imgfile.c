@@ -22,6 +22,8 @@ static uint8_t imgfile_skip_before, imgfile_skip_after;
 static uint16_t imgfile_sector_size, imgfile_sector_completed;
 bool imgfile_need_to_read;
 
+char[] padInt (unsigned int number);
+
 char[] padInt (unsigned int number)
 {
   char paddedString[] = "0000000";
