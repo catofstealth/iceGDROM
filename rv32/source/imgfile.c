@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -27,16 +26,38 @@ void printLinePrefix (unsigned int number)
 {
   char paddedString[] = "0000000";
   char numString [8];
-  itoa(number, numString, 10);
-
-  unsigned int x;
-  for(x = 0; x < 8; x++)
-  {
-    paddedString[7-x] = numString[x];
-  }
+  //itoa(number, numString, 10);
+  // 
 
   DEBUG_PUTS("\n[");
-  DEBUG_PUTS(paddedString);
+
+
+  if(number < 10)
+  {
+    DEBUG_PUTS("00000");
+  }
+
+  if(number < 100 && >= 10)
+  {
+    DEBUG_PUTS("0000");
+  }
+
+  if(number < 1000 && >= 100)
+  {
+    DEBUG_PUTS("000");
+  }
+
+  if(number < 10000 && >= 1000)
+  {
+    DEBUG_PUTS("00");
+  }
+
+  if(number < 100000 && >= 10000)
+  {
+    DEBUG_PUTS("0");
+  }
+  
+  DEBUG_PUTS(number);  
   DEBUG_PUTS("] ");
 }
 
