@@ -72,7 +72,7 @@ bool imgfile_init()
   sprintf(0,"00000000%d",linePrefix);
   const unsigned char * const test = (unsigned char*)&toc[0];
   DEBUG_PUTS("Size of TOC array..");
-  uint8_t sizeOfToc = sizeof(toc[0]);
+  unsigned int sizeOfToc = sizeof(toc[0]);
   DEBUG_PUTX(sizeOfToc);
   DEBUG_PUTS("\n[");
   DEBUG_PUTS(linePrefix);
