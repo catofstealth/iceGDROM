@@ -85,7 +85,6 @@ bool imgfile_init()
     {
       sprintf(x,"00000000%d",linePrefix);
       DEBUG_PUTS("\n[");
-      sprintf(x)
       DEBUG_PUTS(linePrefix);
       DEBUG_PUTS("] ");
     }
