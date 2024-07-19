@@ -37,6 +37,13 @@ bool imgfile_init()
       return false;
   }
 
+  DEBUG_PUTS("ImgFile Initialised\n");
+  for(int i = 0; i < sizeof(t); i++ )
+  {
+    DEBUG_PUTC(t[i]);
+  }
+  
+
   return true;
 }
 
