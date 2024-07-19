@@ -90,13 +90,17 @@ bool imgfile_init()
   char linePrefix [10];
   //sprintf(0,"00000000%d",linePrefix);
   const unsigned char * const test = (unsigned char*)&toc[0];
-  DEBUG_PUTS("Size of TOC array..");
+  DEBUG_PUTS("Size of TOC 0 array..");
   unsigned int sizeOfToc = sizeof(toc[0]);
   printLinePrefix(sizeOfToc);
-  //DEBUG_PUTX(sizeOfToc);
+
+  DEBUG_PUTS("Size of TOC 1 array..");
+  unsigned int sizeOfToc = sizeof(toc[1]);
+  printLinePrefix(sizeOfToc);
+
   printLinePrefix(0);
   
-  for(x = 0xACA10; x < 0xACAA0; x++)
+  for(x = 0; x < sizeOfToc; x++)
   {
     DEBUG_PUTX(test[x]);
     DEBUG_PUTS(" ");
