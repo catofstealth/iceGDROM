@@ -95,7 +95,7 @@ bool imgfile_init()
   printLinePrefix(sizeOfToc);
 
   DEBUG_PUTS("Size of TOC 1 array..");
-  unsigned int sizeOfToc = sizeof(toc[1]);
+  sizeOfToc = sizeof(toc[1]);
   printLinePrefix(sizeOfToc);
 
   printLinePrefix(0);
