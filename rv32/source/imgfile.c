@@ -22,32 +22,20 @@ static uint8_t imgfile_skip_before, imgfile_skip_after;
 static uint16_t imgfile_sector_size, imgfile_sector_completed;
 bool imgfile_need_to_read;
 
-// string padInt (uint8_t number)
-// {
-//   char buffer [10];
-  
+string padInt (unsigned int number)
+{
+  char paddedString[] = "0000000";
+  char numString [8];
+  itoa(number, numString, 10);
 
-//   //printf having alignment issues, just force it for now
-//   if(number > -10 && number < 10)
-//   {
-//     return "000" + buffer;
-//   }
+  unsigned int x;
+  for(x = 0; x < 8; x++)
+  {
+    paddedString[7-x] = numString[x];
+  }
 
-//   if(number > -100 && number < 100)
-//   {
-//     return "00" + buffer;
-//   }
-
-//   if(number > -1000 && number < 1000)
-//   {
-//     return "0" + buffer;
-//   }
-
-//   if(number > -10000 && number < 10000)
-//   {
-//     return buffer;
-//   }
-// }
+  return paddedString;
+}
 
 bool imgfile_init()
 {
@@ -67,15 +55,15 @@ bool imgfile_init()
 
   DEBUG_PUTS("ImgFile Initialised\n");
   
-  uint8_t x;
+  unsigned int x;
   char linePrefix [10];
-  sprintf(0,"00000000%d",linePrefix);
+  //sprintf(0,"00000000%d",linePrefix);
   const unsigned char * const test = (unsigned char*)&toc[0];
   //DEBUG_PUTS("Size of TOC array..");
   //unsigned int sizeOfToc = sizeof(toc[0]);
   //DEBUG_PUTX(sizeOfToc);
   DEBUG_PUTS("\n[");
-  DEBUG_PUTS(linePrefix);
+  DEBUG_PUTS(padInt(0));
   DEBUG_PUTS("] ");
   for(x = 0; x < 65; x++)
   {
@@ -83,9 +71,9 @@ bool imgfile_init()
     DEBUG_PUTS(" ");
     if((x+1) % 8 == 0)
     {
-      sprintf(0,"00000000%d",linePrefix); //use x here but try to unbreak it
+      //sprintf(0,"00000000%d",linePrefix); //use x here but try to unbreak it //argh sprintf is 16 byte aligned
       DEBUG_PUTS("\n[");
-      DEBUG_PUTS(linePrefix);
+      DEBUG_PUTS(padInt(x));
       DEBUG_PUTS("] ");
     }
   }
