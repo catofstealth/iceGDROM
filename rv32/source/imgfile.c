@@ -44,16 +44,16 @@ bool imgfile_init()
   const unsigned char * const test = (unsigned char*)&toc[0];
   DEBUG_PUTS("Size of TOC array..");
   DEBUG_PUTS(sizeof(toc[0]));
-  DEBUG_PUTS("\n 0 ");
-  for(x = 0; x < 32; ++x)
+  DEBUG_PUTS("\n[0] ");
+  for(x = 0; x < 64; ++x)
   {
     DEBUG_PUTX(test[x]);
     DEBUG_PUTS(" ");  
-    if(x+1 % 16 == 0)
+    if((x+1) % 16 == 0)
     {
-      DEBUG_PUTS("\n");
+      DEBUG_PUTS("\n[");
       DEBUG_PUTS(x);
-      DEBUG_PUTS(" ");
+      DEBUG_PUTS("] ");
     }
   }
   DEBUG_PUTS("\n");
