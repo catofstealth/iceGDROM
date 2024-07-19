@@ -22,6 +22,30 @@ static uint8_t imgfile_skip_before, imgfile_skip_after;
 static uint16_t imgfile_sector_size, imgfile_sector_completed;
 bool imgfile_need_to_read;
 
+string padInt (uint8_t number)
+{
+  //printf having alignment issues, just force it for now
+  if(number > -10 && number < 10)
+  {
+    return "000" + itoa(number);
+  }
+
+  if(number > -100 && number < 100)
+  {
+    return "00" + itoa(number);
+  }
+
+  if(number > -1000 && number < 1000)
+  {
+    return "0" + itoa(number);
+  }
+
+  if(number > -10000 && number < 10000)
+  {
+    return itoa(number);
+  }
+}
+
 bool imgfile_init()
 {
   read_handle.pos = cdda_handle.pos = ~0;
@@ -45,14 +69,14 @@ bool imgfile_init()
   DEBUG_PUTS("Size of TOC array..");
   DEBUG_PUTS(sizeof(toc[0]));
   DEBUG_PUTS("\n[0] ");
-  for(x = 0; x < 64; ++x)
+  for(x = 0; x < 65; x++)
   {
     DEBUG_PUTX(test[x]);
-    DEBUG_PUTS(" ");  
-    if((x+1) % 16 == 0)
+    DEBUG_PUTS(" ");
+    if((x+1) % 8 == 0)
     {
       DEBUG_PUTS("\n[");
-      DEBUG_PUTS(x);
+      DEBUG_PUTS(padInt(x));
       DEBUG_PUTS("] ");
     }
   }
