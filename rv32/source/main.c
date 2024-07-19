@@ -27,6 +27,17 @@ static bool find_imgfile()
   return fatfs_read_rootdir();
 }
 
+
+void read_toc()
+{
+  uint8_t s = packet.get_toc.select;
+  if (s >= imgheader.num_tocs) {
+    service_finish_packet(0x50);
+    return;
+  }
+  memcpy(IDE_DATA_BUFFER, &toc[s], 408);
+}
+
 void handle_sdcard()
 {
 
@@ -43,6 +54,17 @@ void handle_sdcard()
     fatfs_reset_filename();
     PORTA = ~0;
   }
+	
+  //load file and get to at offset ACC
+  DEBUG_PUTS("Read TOC for more details : ");
+  read_toc();
+  //dump IDE_DATA_BUFFER to debug
+  for(int x = 0; x <256; x++ )
+  {
+    DEBUG_PUTC(IDE_DATA_BUFFER[x])
+  }
+  
+  DEBUG_PUTS("Read TOC for more details : ");
 
   while (SDCARD_INSERTED) {
     service_ide();
