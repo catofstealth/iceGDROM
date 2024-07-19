@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "config.h"
 
@@ -30,11 +31,7 @@ static bool find_imgfile()
 
 void read_toc()
 {
-  uint8_t s = packet.get_toc.select;
-  if (s >= imgheader.num_tocs) {
-    service_finish_packet(0x50);
-    return;
-  }
+  uint8_t s = 1;//packet.get_toc.select;
   memcpy(IDE_DATA_BUFFER, &toc[s], 408);
 }
 
@@ -61,7 +58,7 @@ void handle_sdcard()
   //dump IDE_DATA_BUFFER to debug
   for(int x = 0; x <256; x++ )
   {
-    DEBUG_PUTC(IDE_DATA_BUFFER[x])
+    DEBUG_PUTC(IDE_DATA_BUFFER[x]);
   }
   
   DEBUG_PUTS("Read TOC for more details : ");
