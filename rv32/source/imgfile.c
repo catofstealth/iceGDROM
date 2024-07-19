@@ -73,7 +73,7 @@ bool imgfile_init()
   const unsigned char * const test = (unsigned char*)&toc[0];
   DEBUG_PUTS("Size of TOC array..");
   uint8_t sizeOfToc = sizeof(toc[0]);
-  DEBUG_PUTS(sizeOfToc);
+  DEBUG_PUTX(sizeOfToc);
   DEBUG_PUTS("\n[");
   DEBUG_PUTS(linePrefix);
   DEBUG_PUTS("] ");
@@ -83,7 +83,7 @@ bool imgfile_init()
     DEBUG_PUTS(" ");
     if((x+1) % 8 == 0)
     {
-      sprintf(x,"00000000%d",linePrefix);
+      sprintf(0,"00000000%d",linePrefix); //use x here but try to unbreak it
       DEBUG_PUTS("\n[");
       DEBUG_PUTS(linePrefix);
       DEBUG_PUTS("] ");
