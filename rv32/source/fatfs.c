@@ -252,8 +252,6 @@ bool fatfs_read_rootdir()
 #ifdef FATFS_SKIPAHEAD_INDEX
 	init_skipahead_index();
 #endif
-	DEBUG_PUTS("Read TOC for more details : ");
-	//load file and get to at offset ACC
 	return true;
       }
     }
