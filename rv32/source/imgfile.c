@@ -39,7 +39,12 @@ bool imgfile_init()
   }
 
   DEBUG_PUTS("ImgFile Initialised\n");
-  __builtin_dump_struct(&t, &printf);
+  
+  uint8_t x;
+  for(x = 0; x < sizeof(toc[0]); ++x)
+  {
+    printf("%02X ", t);
+  }
   
   return true;
 }
