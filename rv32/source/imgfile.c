@@ -57,7 +57,7 @@ void printLinePrefix (unsigned int number)
     DEBUG_PUTS("0");
   }
   
-  DEBUG_PUTS(number);  
+  DEBUG_PUTX(number);  
   DEBUG_PUTS("] ");
 }
 
