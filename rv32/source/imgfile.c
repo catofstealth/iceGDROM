@@ -41,10 +41,10 @@ bool imgfile_init()
   DEBUG_PUTS("ImgFile Initialised\n");
   
   uint8_t x;
+  const unsigned char * const test = (unsigned char*)&toc[0];
   for(x = 0; x < sizeof(toc[0]); ++x)
   {
-    DEBUG_PUTS(sizeof(t[x]));
-    //printf("%02X ", t[x]);
+    DEBUG_PUTX(test[x]);
   }
   
   return true;
