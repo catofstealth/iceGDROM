@@ -88,7 +88,7 @@ bool imgfile_init()
   //DEBUG_PUTX(sizeOfToc);
   printLinePrefix(0);
   
-  for(x = 0; x < 65; x++)
+  for(x = 0; x < 256; x++)
   {
     DEBUG_PUTX(test[x]);
     DEBUG_PUTS(" ");
