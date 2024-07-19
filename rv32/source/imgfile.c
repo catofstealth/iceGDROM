@@ -43,7 +43,8 @@ bool imgfile_init()
   uint8_t x;
   for(x = 0; x < sizeof(toc[0]); ++x)
   {
-    printf("%02X ", t);
+    DEBUG_PUTS(sizeof(t[x]));
+    //printf("%02X ", t[x]);
   }
   
   return true;
