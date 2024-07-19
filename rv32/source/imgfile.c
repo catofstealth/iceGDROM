@@ -38,12 +38,8 @@ bool imgfile_init()
   }
 
   DEBUG_PUTS("ImgFile Initialised\n");
-  for(int i = 0; i < sizeof(t); i++ )
-  {
-    DEBUG_PUTC(t[i]);
-  }
+  __builtin_dump_struct(&t, &printf);
   
-
   return true;
 }
 
