@@ -22,9 +22,7 @@ static uint8_t imgfile_skip_before, imgfile_skip_after;
 static uint16_t imgfile_sector_size, imgfile_sector_completed;
 bool imgfile_need_to_read;
 
-char[] padInt (unsigned int number);
-
-char[] padInt (unsigned int number)
+void printLinePrefix (unsigned int number)
 {
   char paddedString[] = "0000000";
   char numString [8];
@@ -36,7 +34,9 @@ char[] padInt (unsigned int number)
     paddedString[7-x] = numString[x];
   }
 
-  return paddedString;
+  DEBUG_PUTS("\n[");
+  DEBUG_PUTS(paddedString);
+  DEBUG_PUTS("] ");
 }
 
 bool imgfile_init()
@@ -64,19 +64,15 @@ bool imgfile_init()
   //DEBUG_PUTS("Size of TOC array..");
   //unsigned int sizeOfToc = sizeof(toc[0]);
   //DEBUG_PUTX(sizeOfToc);
-  DEBUG_PUTS("\n[");
-  DEBUG_PUTS(padInt(0));
-  DEBUG_PUTS("] ");
+  printLinePrefix(0);
+  
   for(x = 0; x < 65; x++)
   {
     DEBUG_PUTX(test[x]);
     DEBUG_PUTS(" ");
     if((x+1) % 8 == 0)
     {
-      //sprintf(0,"00000000%d",linePrefix); //use x here but try to unbreak it //argh sprintf is 16 byte aligned
-      DEBUG_PUTS("\n[");
-      DEBUG_PUTS(padInt(x));
-      DEBUG_PUTS("] ");
+      printLinePrefix(0);
     }
   }
   DEBUG_PUTS("\n");
