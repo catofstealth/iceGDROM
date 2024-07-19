@@ -42,10 +42,19 @@ bool imgfile_init()
   
   uint8_t x;
   const unsigned char * const test = (unsigned char*)&toc[0];
-  for(x = 0; x < sizeof(toc[0]); ++x)
+  DEBUG_PUTS("Size of TOC array..");
+  DEBUG_PUTS(sizeof(toc[0]));
+  DEBUG_PUTS("\n");
+  for(x = 0; x < 256; ++x)
   {
     DEBUG_PUTX(test[x]);
+    DEBUG_PUTS("\n");
+    if(x % 16 == 0)
+    {
+      DEBUG_PUTS("\n");
+    }
   }
+  DEBUG_PUTS("\n");
   
   return true;
 }
