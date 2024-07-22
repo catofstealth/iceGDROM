@@ -44,6 +44,9 @@ void handle_sdcard()
     PORTA = ~0;
   }
 
+  //get toc from loaded image
+  service_get_toc();
+
   while (SDCARD_INSERTED) {
     service_ide();
     service_cdda();
