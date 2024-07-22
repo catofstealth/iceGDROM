@@ -11,7 +11,7 @@
 #define DEBUG_INIT() debug_init()
 #define DEBUG_PUTC(c) debug_putc(c)
 #define DEBUG_PUTX(x) debug_putx(x)
-#define DEBUG_PUTX(x) debug_putx32(x)
+#define DEBUG_PUTX32(x) debug_putx32(x)
 #define DEBUG_PUTS(s) debug_puts(s)
 
 extern void debug_init();
