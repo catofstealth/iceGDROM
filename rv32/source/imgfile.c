@@ -24,47 +24,13 @@ bool imgfile_need_to_read;
 
 void printLinePrefix (uint32_t number)
 {
-  //char paddedString[] = "0000000";
-  //char numString [8];
-
   DEBUG_PUTS("[");
+  // DEBUG_PUTX((uint8_t)(number>>24));
+  // DEBUG_PUTX((uint8_t)(number>>16));
+  // DEBUG_PUTX((uint8_t)(number>>8));
+  // DEBUG_PUTX((uint8_t)number);
 
-  // if(number < 10)
-  // {
-  //   DEBUG_PUTS("0000000");
-  // }
-
-  // if(number < 100 && number >= 10)
-  // {
-  //   DEBUG_PUTS("000000");
-  // }
-
-  // if(number < 1000 && number >= 100)
-  // {
-  //   DEBUG_PUTS("00000");
-  // }
-
-  // if(number < 10000 && number >= 1000)
-  // {
-  //   DEBUG_PUTS("0000");
-  // }
-
-  // if(number < 100000 && number >= 10000)
-  // {
-  //   DEBUG_PUTS("000");
-  // }
-  
-  // if(number < 1000000 && number >= 100000)
-  // {
-  //   DEBUG_PUTS("00");
-  // }
-
-
-  DEBUG_PUTX((uint8_t)(number>>24));
-  DEBUG_PUTX((uint8_t)(number>>16));
-  DEBUG_PUTX((uint8_t)(number>>8));
-  DEBUG_PUTX((uint8_t)number);
-
+  DEBUG_PUTX32((uint8_t)number);
   DEBUG_PUTS("] ");
 }
 
@@ -92,7 +58,7 @@ bool imgfile_init()
   
   DEBUG_PUTS("Size of TOC 0 array..");
   unsigned int sizeOfToc = sizeof(toc[0]);
-  printLinePrefix(sizeOfToc);
+  DEBUG_PUTX32(sizeOfToc);
   DEBUG_PUTS("\n");
 
   printLinePrefix(0);
@@ -111,7 +77,7 @@ bool imgfile_init()
   const unsigned char * const test1 = (unsigned char*)&toc[1];
   DEBUG_PUTS("Size of TOC 1 array..");
   sizeOfToc = sizeof(toc[1]);
-  printLinePrefix(sizeOfToc);
+  DEBUG_PUTX32(sizeOfToc);
   DEBUG_PUTS("\n");
 
   printLinePrefix(0);

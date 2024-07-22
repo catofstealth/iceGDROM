@@ -34,6 +34,15 @@ void debug_putx(uint8_t x)
   debug_putx1(x);
 }
 
+void DEBUG_PUTX32(uint32_t x)
+{
+  debug_putx((uint8_t)(x>>24));
+  debug_putx((uint8_t)(x>>16));
+  debug_putx((uint8_t)(x>>8));
+  debug_putx((uint8_t)x);
+}
+
+
 void debug_puts(const char *str)
 {
   char c;
