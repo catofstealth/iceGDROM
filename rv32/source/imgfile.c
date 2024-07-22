@@ -88,12 +88,27 @@ bool imgfile_init()
   
   uint32_t x;
   char linePrefix [10];
-  //sprintf(0,"00000000%d",linePrefix);
   const unsigned char * const test = (unsigned char*)&toc[0];
+  
   DEBUG_PUTS("Size of TOC 0 array..");
   unsigned int sizeOfToc = sizeof(toc[0]);
   printLinePrefix(sizeOfToc);
 
+  printLinePrefix(0);
+    for(x = 0; x < sizeOfToc; x++)
+  {
+    DEBUG_PUTX(test[x]);
+    DEBUG_PUTS(" ");
+    if((x+1) % 16 == 0)
+    {
+      printLinePrefix(x);
+    }
+  }
+  DEBUG_PUTS("\n");
+
+
+
+  const unsigned char * const test1 = (unsigned char*)&toc[1];
   DEBUG_PUTS("Size of TOC 1 array..");
   sizeOfToc = sizeof(toc[1]);
   printLinePrefix(sizeOfToc);
@@ -102,7 +117,7 @@ bool imgfile_init()
   
   for(x = 0; x < sizeOfToc; x++)
   {
-    DEBUG_PUTX(test[x]);
+    DEBUG_PUTX(test1[x]);
     DEBUG_PUTS(" ");
     if((x+1) % 16 == 0)
     {
