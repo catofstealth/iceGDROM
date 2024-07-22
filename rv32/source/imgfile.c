@@ -27,36 +27,36 @@ void printLinePrefix (uint32_t number)
   char paddedString[] = "0000000";
   char numString [8];
 
-  DEBUG_PUTS("\n[");
+  DEBUG_PUTS("[");
 
   if(number < 10)
   {
-    DEBUG_PUTS("000000");
+    DEBUG_PUTS("0000000");
   }
 
   if(number < 100 && number >= 10)
   {
-    DEBUG_PUTS("00000");
+    DEBUG_PUTS("000000");
   }
 
   if(number < 1000 && number >= 100)
   {
-    DEBUG_PUTS("0000");
+    DEBUG_PUTS("00000");
   }
 
   if(number < 10000 && number >= 1000)
   {
-    DEBUG_PUTS("000");
+    DEBUG_PUTS("0000");
   }
 
   if(number < 100000 && number >= 10000)
   {
-    DEBUG_PUTS("00");
+    DEBUG_PUTS("000");
   }
   
   if(number < 1000000 && number >= 100000)
   {
-    DEBUG_PUTS("0");
+    DEBUG_PUTS("00");
   }
 
 
@@ -93,6 +93,7 @@ bool imgfile_init()
   DEBUG_PUTS("Size of TOC 0 array..");
   unsigned int sizeOfToc = sizeof(toc[0]);
   printLinePrefix(sizeOfToc);
+  DEBUG_PUTS("\n");
 
   printLinePrefix(0);
     for(x = 0; x < sizeOfToc; x++)
@@ -101,17 +102,17 @@ bool imgfile_init()
     DEBUG_PUTS(" ");
     if((x+1) % 16 == 0)
     {
+      DEBUG_PUTS("\n");
       printLinePrefix(x);
     }
   }
   DEBUG_PUTS("\n");
 
-
-
   const unsigned char * const test1 = (unsigned char*)&toc[1];
   DEBUG_PUTS("Size of TOC 1 array..");
   sizeOfToc = sizeof(toc[1]);
   printLinePrefix(sizeOfToc);
+  DEBUG_PUTS("\n");
 
   printLinePrefix(0);
   
@@ -121,6 +122,7 @@ bool imgfile_init()
     DEBUG_PUTS(" ");
     if((x+1) % 16 == 0)
     {
+      DEBUG_PUTS("\n");
       printLinePrefix(x);
     }
   }
