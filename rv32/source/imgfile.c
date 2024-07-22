@@ -24,40 +24,40 @@ bool imgfile_need_to_read;
 
 void printLinePrefix (uint32_t number)
 {
-  char paddedString[] = "0000000";
-  char numString [8];
+  //char paddedString[] = "0000000";
+  //char numString [8];
 
   DEBUG_PUTS("[");
 
-  if(number < 10)
-  {
-    DEBUG_PUTS("0000000");
-  }
+  // if(number < 10)
+  // {
+  //   DEBUG_PUTS("0000000");
+  // }
 
-  if(number < 100 && number >= 10)
-  {
-    DEBUG_PUTS("000000");
-  }
+  // if(number < 100 && number >= 10)
+  // {
+  //   DEBUG_PUTS("000000");
+  // }
 
-  if(number < 1000 && number >= 100)
-  {
-    DEBUG_PUTS("00000");
-  }
+  // if(number < 1000 && number >= 100)
+  // {
+  //   DEBUG_PUTS("00000");
+  // }
 
-  if(number < 10000 && number >= 1000)
-  {
-    DEBUG_PUTS("0000");
-  }
+  // if(number < 10000 && number >= 1000)
+  // {
+  //   DEBUG_PUTS("0000");
+  // }
 
-  if(number < 100000 && number >= 10000)
-  {
-    DEBUG_PUTS("000");
-  }
+  // if(number < 100000 && number >= 10000)
+  // {
+  //   DEBUG_PUTS("000");
+  // }
   
-  if(number < 1000000 && number >= 100000)
-  {
-    DEBUG_PUTS("00");
-  }
+  // if(number < 1000000 && number >= 100000)
+  // {
+  //   DEBUG_PUTS("00");
+  // }
 
 
   DEBUG_PUTX((uint8_t)(number>>24));
