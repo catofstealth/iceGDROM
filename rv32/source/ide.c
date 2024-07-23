@@ -722,7 +722,7 @@ void read_toc()
   0010 000 0 (hex 20, Dec 32)= Data, Any, FAD
   0010 011 0
   */
-  uint8_t flags = 0x22; //collapses down to bool 1 or 0 depending on MSF flag, 
+  uint8_t flags = 0x20; //collapses down to bool 1 or 0 depending on MSF flag, 
   uint32_t blk = get_fad(start_addr, flags&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
   DEBUG_PUTS("Seeking block : ");
   DEBUG_PUTX(blk);
