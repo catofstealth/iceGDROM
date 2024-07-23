@@ -202,6 +202,7 @@ static void __inline sd_xfer_block(uint8_t *ptr)
 
 static bool sd_try_read_block(uint32_t blk, uint8_t *ptr)
 {
+  DEBUG_PUTS("sd_try_read_block");
   PORTA |= 0x80;
   if (!is_hc)
     blk <<= 9;
@@ -240,6 +241,7 @@ static bool sd_try_read_block(uint32_t blk, uint8_t *ptr)
 
 bool sd_read_block(uint32_t blk, uint8_t *ptr)
 {
+  DEBUG_PUTS("sd_read_block");
   uint8_t tries = 0;
   do {
     if (sd_try_read_block(blk, ptr))

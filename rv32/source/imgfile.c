@@ -109,6 +109,8 @@ static void imgfile_adjust_sector_start()
 
 bool imgfile_read_next_sector(uint8_t *ptr)
 {
+  DEBUG_PUTS("imgfile_read_next_sector");
+
   if (imgfile_need_to_read) {
     if (!fatfs_read_next_sector(&read_handle, ptr))
       return false;
