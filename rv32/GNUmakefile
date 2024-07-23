@@ -11,7 +11,7 @@ ABI = ilp32e
 ARCH = rv32emc_zicsr
 
 CFLAGS = -Os -fomit-frame-pointer -msmall-data-limit=100
-LDFLAGS = -Wl,--defsym,__stack=0x3000,-T,$(SRC)/main.lds,-Map,$@.map -nostartfiles -mrelax
+LDFLAGS = -Wl,--defsym,__stack=0x4000,-T,$(SRC)/main.lds,-Map,$@.map -nostartfiles -mrelax
 
 ALL_CFLAGS = -mabi=$(ABI) -march=$(ARCH) -I. -I$(SRC) $(CFLAGS)
 ALL_ASFLAGS = -mabi=$(ABI) -march=$(ARCH) -I. -I$(SRC) -x assembler-with-cpp $(ASFLAGS)
