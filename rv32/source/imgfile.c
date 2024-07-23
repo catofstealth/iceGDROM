@@ -188,7 +188,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     mode2/form1 for XA and mode1 otherwise */
         if (!(rmode & 4))
         {
-          DEBUG_PUTS("imgfile_seek_internal Case 0 : data select with any type with incorrect mode? (4) \n");
+          //DEBUG_PUTS("imgfile_seek_internal Case 0\n");
           return false;
         }
         if (imgheader.disk_type == 0x20) {
@@ -204,7 +204,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     case 1:
       if (rmode & 4)
       {
-        //DEBUG_PUTS("imgfile_seek_internal Case 1\n");
+        DEBUG_PUTS("imgfile_seek_internal Case 1\n");
         return false;
       }
       break;
@@ -214,7 +214,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
       /* FALLTHRU */
       if (!(rmode & 4) || imgheader.disk_type == 0x20)
       {
-        //DEBUG_PUTS("imgfile_seek_internal Case 3\n");
+        DEBUG_PUTS("imgfile_seek_internal Case 3\n");
         return false;
       }
       break;
