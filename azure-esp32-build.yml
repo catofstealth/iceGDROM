@@ -7,9 +7,11 @@ trigger:
 - agent-pipeline
 
 variables:
-  installToolchain: false
-  installMakeIP: false
-  bitstreamGenerated: false
+  - group: 'TestGroup'
+  # installToolchain: false
+  # installMakeIP: false
+  #bitstreamGenerated: false
+
 
 pool: 'Linux RISC V'
 
@@ -17,6 +19,8 @@ steps:
 - script: |
     echo Creating base folder
     ls -al /opt
+    echo '$(MyVariable)'
+    echo $variables['MyVariable']
   displayName: 'Setup folders'
   
 - task: DownloadBuildArtifacts@1
