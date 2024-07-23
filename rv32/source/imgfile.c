@@ -204,7 +204,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     case 1:
       if (rmode & 4)
       {
-        DEBUG_PUTS("imgfile_seek_internal Case 1 : data select with any type with incorrect mode? (4) \n");
+        //DEBUG_PUTS("imgfile_seek_internal Case 1 : data select with any type with incorrect mode? (4) \n");
         return false;
       }
       break;
