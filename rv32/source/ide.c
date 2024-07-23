@@ -690,12 +690,42 @@ void set_disk_type(uint8_t type)
 
 void read_toc()
 {
-  service_get_toc();
+  //try to read the ip.bin data to get the text information at AAC10...
+
+  //uint8_t offs = imgfile_data_offs;
+  DEBUG_PUTS("\nImgfile data offset : ");
+  DEBUG_PUTX(imgfile_data_offs);
+  //uint8_t len = imgfile_data_len;
+  DEBUG_PUTS("\nImgfile data length : ");
+  DEBUG_PUTX(imgfile_data_len);
+  DEBUG_PUTS("\n");
+
+  preload_status = PRELOAD_NONE;
+  //service_sectors_left = ((packet.cd_read.transfer_length[1]<<8)|packet.cd_read.transfer_length[2]);
+  //no binary so we want to read a single sector? 3 bytes here in transfer_length, 
+  service_sectors_left = (( 0 << 8) | 1); //read one sector?
+  //uint32_t blk = get_fad(packet.cd_read.start_addr, packet.cd_read.flags&1);
+  uint32_t blk = get_fad(0xACA10, 16&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
+  if (!imgfile_seek(blk, packet.cd_read.flags)) {
+#ifdef IDEDEBUG
+    DEBUG_PUTS("[SEEK ERROR]\n");
+#endif
+    service_finish_packet(0x04); /* Abort */
+    return;
+  }
+  service_cd_read_cont();
+
+
+
+
+  //service_get_toc();
+  memcpy(IDE_DATA_BUFFER, &toc[s], 408);
+
   //loop IDE_DATA_BUFFER
   DEBUG_PUTS("GDROM TOC Data ");
   DEBUG_PUTX(sizeof(IDE_DATA_BUFFER));
   DEBUG_PUTS(" Elements : \n");
-  
+
   DEBUG_PUTS("[");
   DEBUG_PUTX32(0);
   DEBUG_PUTS("] ");
