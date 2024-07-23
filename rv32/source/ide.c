@@ -423,7 +423,8 @@ static uint32_t get_fad(const uint8_t *bytes, bool msf)
   }
 }
 
-static void service_get_toc()
+//static void service_get_toc()
+void service_get_toc()
 {
   uint8_t s = packet.get_toc.select;
   if (s >= imgheader.num_tocs) {
