@@ -311,12 +311,24 @@ bool fatfs_seek(struct fatfs_handle *handle, uint32_t sector_nr)
 bool fatfs_read_next_sector(struct fatfs_handle *handle, uint8_t *buf)
 {
   DEBUG_PUTS("fatfs_read_next_sector");
+
   if (handle->cluster_nr & FAT_EOC)
+  {
+    DEBUG_PUTS("Error - Cluster no greater than end of file\n");
     return false;
+  }
+
   uint8_t blk = (handle->pos&0xff)&(blocks_per_cluster-1);
+  DEBUG_PUTS("Block Number ");
+  DEBUG_PUTSX(blk);
+  DEBUG_PUTS("\n");
+
   if (buf) {
     if (!sd_read_block(data_start+(handle->cluster_nr<<cluster_shift)+blk, buf))
+    {
+      DEBUG_PUTS("Error - Cant read block\n")
       return false;
+    }
   }
   if (++blk == blocks_per_cluster)
     handle->cluster_nr = get_fat_entry(handle->cluster_nr);
