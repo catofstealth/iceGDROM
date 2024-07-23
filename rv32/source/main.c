@@ -45,6 +45,8 @@ void handle_sdcard()
   }
 
   //get toc from loaded image
+  service_ide();
+  service_cdda();
   read_toc();
 
   while (SDCARD_INSERTED) {
