@@ -709,12 +709,14 @@ void read_toc()
   //uint32_t blk = get_fad(packet.cd_read.start_addr, packet.cd_read.flags&1);
   //1010 11001100 00010000 = ACC10
   uint8_t start_addr[3] = {0xA, 0xCC, 0x10};
-  uint32_t blk = get_fad(start_addr, 0x22&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
-  if (!imgfile_seek(blk, packet.cd_read.flags)) {
-#ifdef IDEDEBUG
-    DEBUG_PUTS("[SEEK ERROR]\n");
-#endif
-    service_finish_packet(0x04); /* Abort */
+  uint8_ty flags = 0x22&1;
+  uint32_t blk = get_fad(start_addr, flags); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
+  if (!imgfile_seek(blk, flags))
+  {
+    #ifdef IDEDEBUG
+      DEBUG_PUTS("[SEEK ERROR]\n");
+    #endif
+    //service_finish_packet(0x04); /* Abort */
     return;
   }
   service_cd_read_cont();
