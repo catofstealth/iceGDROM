@@ -704,8 +704,11 @@ void read_toc()
   //service_sectors_left = ((packet.cd_read.transfer_length[1]<<8)|packet.cd_read.transfer_length[2]);
   //no binary so we want to read a single sector? 3 bytes here in transfer_length, 
   service_sectors_left = (( 0 << 8) | 1); //read one sector?
+  
   //uint32_t blk = get_fad(packet.cd_read.start_addr, packet.cd_read.flags&1);
-  uint32_t blk = get_fad(0xACA10, 16&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
+  
+  uint8_t start_addr[3] = [(uint8_t) 0, (uint8_t) 0, (uint8_t) 0xACC10];
+  uint32_t blk = get_fad(start_addr, 16&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
   if (!imgfile_seek(blk, packet.cd_read.flags)) {
 #ifdef IDEDEBUG
     DEBUG_PUTS("[SEEK ERROR]\n");
