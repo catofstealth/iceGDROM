@@ -713,8 +713,6 @@ void read_toc()
   uint32_t blk = get_fad(start_addr, flags&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
   DEBUG_PUTS("Seeking block : ");
   DEBUG_PUTX(blk);
-  DEBUG_PUTS(" flags : ");
-  DEBUG_PUTX(flags);
   DEBUG_PUTS("\n");
   if (!imgfile_seek(blk, flags))
   {
