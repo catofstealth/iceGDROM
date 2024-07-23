@@ -176,7 +176,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
       break;
     }
   }
-  //DEBUG_PUTS("imgfile_seek_internal Passed imgheader check\n");
+  DEBUG_PUTS("imgfile_seek_internal Passed imgheader check\n");
 
   uint8_t skip_before = 0, skip_after = 0;
 
