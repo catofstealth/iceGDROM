@@ -25,7 +25,7 @@ steps:
   
 - script: |
     echo Condition passed
-  condition: eq('$(MyVariable)', true)
+  condition: eq(variables['MyVariable'], 'true')
     
 - task: DownloadBuildArtifacts@1
   displayName: 'Download Cross Compiler Toolchain for SH4/ARM'
