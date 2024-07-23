@@ -709,8 +709,13 @@ void read_toc()
   //uint32_t blk = get_fad(packet.cd_read.start_addr, packet.cd_read.flags&1);
   //1010 11001100 00010000 = ACC10
   uint8_t start_addr[3] = {0xA, 0xCC, 0x10};
-  uint8_t flags = 0x22&1;
+  uint8_t flags = 0x22 & 1;
   uint32_t blk = get_fad(start_addr, flags); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
+  DEPUG_PUTS("Seeking block : ");
+  DEPUG_PUTX(blk);
+  DEPUG_PUTS(" flags : ");
+  DEPUG_PUTX(flags);
+  DEPUG_PUTS("\n");
   if (!imgfile_seek(blk, flags))
   {
     #ifdef IDEDEBUG
