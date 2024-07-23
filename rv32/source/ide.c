@@ -711,11 +711,11 @@ void read_toc()
   uint8_t start_addr[3] = {0xA, 0xCC, 0x10};
   uint8_t flags = 0x22 & 1;
   uint32_t blk = get_fad(start_addr, flags); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
-  DEPUG_PUTS("Seeking block : ");
-  DEPUG_PUTX(blk);
-  DEPUG_PUTS(" flags : ");
-  DEPUG_PUTX(flags);
-  DEPUG_PUTS("\n");
+  DEBUG_PUTS("Seeking block : ");
+  DEBUG_PUTX(blk);
+  DEBUG_PUTS(" flags : ");
+  DEBUG_PUTX(flags);
+  DEBUG_PUTS("\n");
   if (!imgfile_seek(blk, flags))
   {
     #ifdef IDEDEBUG
