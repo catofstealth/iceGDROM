@@ -720,7 +720,8 @@ void read_toc()
   service_cd_read_cont();
 
 
-
+/*
+  //TOC data is Fat TOC not GDROM data
 
   //service_get_toc();
   //memcpy(IDE_DATA_BUFFER, &toc[s], 408);
@@ -749,4 +750,5 @@ void read_toc()
   }
 
   DEBUG_PUTS("\n");
+*/
 }

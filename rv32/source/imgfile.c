@@ -153,70 +153,106 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
   uint32_t blk;
   uint8_t rmode = 0xff;
   uint8_t secoffs = 0;
-  for(i=0; i<imgheader.num_regions; i++) {
+  for(i=0; i<imgheader.num_regions; i++)
+  {
     uint32_t start = imgheader.regions[i].start_and_type & 0xffffff;
     if (sec >= start) {
       rmode = imgheader.regions[i].start_and_type >> 24;
       uint32_t wordoffs = (sec-start)*(2352/2);
       secoffs = (uint8_t)wordoffs;
       blk = (wordoffs>>8)+imgheader.regions[i].fileoffs;
-    } else {
+    }
+    else
+    {
       if (!i)
-	return false;
+      {
+        return false;      
+      }
       break;
     }
   }
+  DEBUG_PUTS("imgfile_seek_internal Passed imgheader check\n");
+
   uint8_t skip_before = 0, skip_after = 0;
-  switch((mode>>1)&7) {
-  case 0:
-    if(!(mode & 0x10)) {
-      /* Data select with "Any type"; check for data track and assume
-	 mode2/form1 for XA and mode1 otherwise */
-      if (!(rmode & 4))
-	return false;
-      if (imgheader.disk_type == 0x20) {
-	skip_after = 280/2;
-	if (!(mode & 0x40))
-	  skip_before = 8/2;
-      } else
-	skip_after = 288/2;
-    }
-    break;
-  case 1:
-    if (rmode & 4)
+
+  switch((mode>>1)&7) 
+  {
+    case 0:
+      if(!(mode & 0x10)) {
+        /* Data select with "Any type"; check for data track and assume
+    mode2/form1 for XA and mode1 otherwise */
+        if (!(rmode & 4))
+        {
+          DEBUG_PUTS("imgfile_seek_internal data select with any type with incorrect mode? (4) \n");
+          retrun false;
+        }
+        if (imgheader.disk_type == 0x20) {
+          skip_after = 280/2;
+          if (!(mode & 0x40))
+          {
+            skip_before = 8/2;
+          }
+        } else
+      skip_after = 288/2;
+      }
+      break;
+    case 1:
+      if (rmode & 4)
+      {
+        DEBUG_PUTS("imgfile_seek_internal data select with any type with incorrect mode? (4) \n");
+        return false;
+      }
+      break;
+    case 2:
+      skip_after = 288/2;
+    case 3:
+      /* FALLTHRU */
+      if (!(rmode & 4) || imgheader.disk_type == 0x20)
+      {
+        DEBUG_PUTS("imgfile_seek_internal disc type 0x20 data select with any type with incorrect mode? (4) \n");
+        return false;
+      }
+      break;
+    case 4:
+      skip_after = 276/2;
+      /* FALLTHRU */
+    case 5:
+      skip_after += 4/2;
+      if (!(rmode & 4) || imgheader.disk_type != 0x20)
+      {
+        DEBUG_PUTS("imgfile_seek_internal disc type 0x20 data select with any type with incorrect mode? (4) \n");
+        return false;
+      }
+      if (!(mode & 0x40))
+      {
+        skip_before = 8/2;
+      }
+      break;
+    case 6:
+      break;
+    default:
+      DEBUG_PUTS("imgfile_seek_internal default response, failing \n");
       return false;
-    break;
-  case 2:
-    skip_after = 288/2;
-  case 3:
-    /* FALLTHRU */
-    if (!(rmode & 4) || imgheader.disk_type == 0x20)
-      return false;
-    break;
-  case 4:
-    skip_after = 276/2;
-    /* FALLTHRU */
-  case 5:
-    skip_after += 4/2;
-    if (!(rmode & 4) || imgheader.disk_type != 0x20)
-      return false;
-    if (!(mode & 0x40))
-      skip_before = 8/2;
-    break;
-  case 6:
-    break;
-  default:
-    return false;
   }
-  if (mode & 0x10) {
+
+  DEBUG_PUTS("imgfile_seek_internal passed mode switch block\n");
+
+  if (mode & 0x10) 
+  {
     skip_before = 0;
     skip_after = 0;
-  } else if (!(mode & 0x20)) {
+  }
+  else if (!(mode & 0x20)) 
+  {
+    DEBUG_PUTS("imgfile_seek_internal Incorrect mode (not 0x20) \n");
     return false;
-  } else if (!(mode & 0x80)) {
+  }
+  else if (!(mode & 0x80))
+  {
     skip_before += 16/2;
   }
-  if (data) {
+  if (data) 
+  {
     imgfile_sector_size = 2352/2;
     imgfile_sector_size -= skip_before;
     imgfile_sector_size -= skip_after;
@@ -227,13 +263,21 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     imgfile_sector_completed = 0;
     imgfile_adjust_sector_start();
     if (imgfile_need_to_read)
+    {
       blk++;
+    }
     else
+    {
       imgfile_need_to_read = true;
-  } else {
+    }
+  }
+  else
+  {
     cdda_subcode_q[0] = (rmode<<4)|1;
     cdda_toc = rmode & 0x80;
   }
+
+  DEBUG_PUTS("Attempting fatfs seek\n");
   return fatfs_seek((data? &read_handle : &cdda_handle), blk);
 }
 
