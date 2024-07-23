@@ -450,34 +450,44 @@ static void service_req_ses()
 
 static void service_cd_read_cont()
 {
-#ifdef IDEDEBUG
+
+  #ifdef IDEDEBUG
   if (service_dma) {
     DEBUG_PUTS("[DMA READ CONT][");
   } else {
     DEBUG_PUTS("[PIO READ CONT][");
   }
-#endif
+  #endif
+
   if (!service_sectors_left) {
-#ifdef IDEDEBUG
+    #ifdef IDEDEBUG
     DEBUG_PUTS("COMPLETE]\n");
-#endif
+    #endif
     service_finish_packet(0);
     return;
   }
-  if (preload_status == PRELOAD_AVAILABLE) {
+
+  if (preload_status == PRELOAD_AVAILABLE)
+  {
     IDE_IOCONTROL = 0x80;
-  } else if (preload_status == PRELOAD_FAILED || !imgfile_read_next_sector(&IDE_DATA_BUFFER[0])) {
-#ifdef IDEDEBUG
+  }
+  else if (preload_status == PRELOAD_FAILED || !imgfile_read_next_sector(&IDE_DATA_BUFFER[0]))
+  {
+    #ifdef IDEDEBUG
     DEBUG_PUTS("READ ERROR]\n");
-#endif
+    #endif
     service_finish_packet(0x04); /* Abort */
     return;
   }
+
   uint8_t offs = imgfile_data_offs;
   uint8_t len = imgfile_data_len;
   if (imgfile_sector_complete())
+  {
     --service_sectors_left;
-#ifdef IDEDEBUG
+  }
+
+  #ifdef IDEDEBUG
   IDE_IOCONTROL = 0x01;
   uint8_t i = 0;
   __asm__ __volatile__("" ::: "memory");
@@ -735,6 +745,7 @@ void read_toc()
     //service_finish_packet(0x04); /* Abort */
     return;
   }
+  DEBUG_PUTS("Seek successful, reading image file\n");
   service_cd_read_cont();
 
 

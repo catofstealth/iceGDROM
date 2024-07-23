@@ -153,10 +153,6 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
   uint32_t blk;
   uint8_t rmode = 0xff;
   uint8_t secoffs = 0;
-  
-  DEBUG_PUTS("MODE : ");
-  DEBUG_PUTX(mode);
-  DEBUG_PUTS("\n");
 
   for(i=0; i<imgheader.num_regions; i++)
   {
@@ -176,15 +172,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
       break;
     }
   }
-  //DEBUG_PUTS("imgfile_seek_internal Passed imgheader check\n");
-
   uint8_t skip_before = 0, skip_after = 0;
-
-  DEBUG_PUTS("case input : ");
-  DEBUG_PUTX((mode>>1)&7);
-  DEBUG_PUTS(" - ");
-  DEBUG_PUTX(rmode);
-  DEBUG_PUTS("\n");
   switch((mode>>1)&7) 
   {
     case 0: //any type
@@ -193,7 +181,6 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     mode2/form1 for XA and mode1 otherwise */
         if (!(rmode & 4))
         {
-          //DEBUG_PUTS("imgfile_seek_internal Case 0\n");
           return false;
         }
         if (imgheader.disk_type == 0x20) {
@@ -209,7 +196,6 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     case 1: //CD-DA
       if (rmode & 4)
       {
-        DEBUG_PUTS("imgfile_seek_internal Mode CD-DA\n");
         return false;
       }
       break;
@@ -219,7 +205,6 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
       /* FALLTHRU */
       if (!(rmode & 4) || imgheader.disk_type == 0x20)
       {
-        DEBUG_PUTS("imgfile_seek_internal Mode 2\n");
         return false;
       }
       break;
@@ -230,7 +215,6 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
       skip_after += 4/2;
       if (!(rmode & 4) || imgheader.disk_type != 0x20)
       {
-        DEBUG_PUTS("imgfile_seek_internal Mode 2 Form 2\n");
         return false;
       }
       if (!(mode & 0x40))
@@ -241,11 +225,8 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     case 6: //Mode 2 non XA
       break;
     default:
-      DEBUG_PUTS("imgfile_seek_internal default response, failing \n");
       return false;
   }
-
-  DEBUG_PUTS("imgfile_seek_internal passed mode switch block\n");
 
   if (mode & 0x10) 
   {
@@ -254,7 +235,6 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
   }
   else if (!(mode & 0x20)) 
   {
-    DEBUG_PUTS("imgfile_seek_internal Incorrect mode (not 0x20) \n");
     return false;
   }
   else if (!(mode & 0x80))
