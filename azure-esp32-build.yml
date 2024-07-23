@@ -93,20 +93,9 @@ steps:
       echo "##vso[task.setvariable variable=bitstreamGenerated;]true"
     else
       echo "File $FILE does not exist."
+      exit 1
     fi
-
   displayName: 'Build all (make in root)'
-
-- script: |
-    FILE=fpga/obj/gdrom_hw_emulator.bin
-    if [ -f $FILE ]; then
-      echo "File $FILE exists."
-      echo "##vso[task.setvariable variable=bitstreamGenerated;]true"
-    else
-      echo "File $FILE does not exist."
-    fi
-  displayName: 'Check for bitstream file creation'
-
 
 - task: CopyFiles@2
   inputs:
