@@ -182,6 +182,8 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
 
   DEBUG_PUTS("case input : ");
   DEBUG_PUTX((mode>>1)&7);
+  DEBUG_PUTS(" - ");
+  DEBUG_PUTX(rmode);
   DEBUG_PUTS("\n");
   switch((mode>>1)&7) 
   {
