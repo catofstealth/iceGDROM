@@ -23,6 +23,10 @@ steps:
     echo $variables['MyVariable']
   displayName: 'Setup folders'
   
+- script: |
+    echo Condition passed
+  condition: eq('$(MyVariable)', 'true')
+    
 - task: DownloadBuildArtifacts@1
   displayName: 'Download Cross Compiler Toolchain for SH4/ARM'
   condition: eq(variables.installToolchain, true)
