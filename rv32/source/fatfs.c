@@ -320,13 +320,13 @@ bool fatfs_read_next_sector(struct fatfs_handle *handle, uint8_t *buf)
 
   uint8_t blk = (handle->pos&0xff)&(blocks_per_cluster-1);
   DEBUG_PUTS("Block Number ");
-  DEBUG_PUTSX(blk);
+  DEBUG_PUTX(blk);
   DEBUG_PUTS("\n");
 
   if (buf) {
     if (!sd_read_block(data_start+(handle->cluster_nr<<cluster_shift)+blk, buf))
     {
-      DEBUG_PUTS("Error - Cant read block\n")
+      DEBUG_PUTS("Error - Cant read block\n");
       return false;
     }
   }
