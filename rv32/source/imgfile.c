@@ -153,6 +153,11 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
   uint32_t blk;
   uint8_t rmode = 0xff;
   uint8_t secoffs = 0;
+  
+  DEBUG_PUTS("MODE : ");
+  DEBUG_PUTX(mode);
+  DEBUG_PUTS("\n");
+
   for(i=0; i<imgheader.num_regions; i++)
   {
     uint32_t start = imgheader.regions[i].start_and_type & 0xffffff;
