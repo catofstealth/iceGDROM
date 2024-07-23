@@ -709,8 +709,8 @@ void read_toc()
   //uint32_t blk = get_fad(packet.cd_read.start_addr, packet.cd_read.flags&1);
   //1010 11001100 00010000 = ACC10
   uint8_t start_addr[3] = {0xA, 0xCC, 0x10};
-  uint8_t flags = 0x22 & 1;
-  uint32_t blk = get_fad(start_addr, flags); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
+  uint8_t flags = 0x22; //collapses down to bool 1 or 0 depending on MSF flag
+  uint32_t blk = get_fad(start_addr, flags&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
   DEBUG_PUTS("Seeking block : ");
   DEBUG_PUTX(blk);
   DEBUG_PUTS(" flags : ");
