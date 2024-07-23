@@ -703,8 +703,9 @@ void read_toc()
   preload_status = PRELOAD_NONE;
   //service_sectors_left = ((packet.cd_read.transfer_length[1]<<8)|packet.cd_read.transfer_length[2]);
   //no binary so we want to read a single sector? 3 bytes here in transfer_length, 
-  service_sectors_left = (( 0 << 8) | 1); //read one sector?
-  
+  //service_sectors_left = (( 0 << 8) | 1); //read one sector?
+  service_sectors_left = 0x1;
+
   //uint32_t blk = get_fad(packet.cd_read.start_addr, packet.cd_read.flags&1);
   //1010 11001100 00010000 = ACC10
   uint8_t start_addr[3] = {0xA, 0xCC, 0x10};
