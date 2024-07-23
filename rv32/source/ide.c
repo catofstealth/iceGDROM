@@ -435,7 +435,7 @@ static uint32_t get_fad(const uint8_t *bytes, bool msf)
   for(uint32_t x = 0; x < sizeof(IDE_DATA_BUFFER); x++)
   {
       DEBUG_PUTX(IDE_DATA_BUFFER[x]);
-      DEBUG_PUTS(" ")
+      DEBUG_PUTS(" ");
 
     if((x+1) % 16 == 0)
     {
