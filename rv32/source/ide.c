@@ -722,7 +722,7 @@ void read_toc()
 
 
   //service_get_toc();
-  memcpy(IDE_DATA_BUFFER, &toc[s], 408);
+  //memcpy(IDE_DATA_BUFFER, &toc[s], 408);
 
   //loop IDE_DATA_BUFFER
   DEBUG_PUTS("GDROM TOC Data ");
