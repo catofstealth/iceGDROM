@@ -692,7 +692,10 @@ void read_toc()
 {
   service_get_toc();
   //loop IDE_DATA_BUFFER
-  DEBUG_PUTS("GDROM TOC Data : \n");
+  DEBUG_PUTS("GDROM TOC Data ");
+  DEBUG_PUTX(sizeof(IDE_DATA_BUFFER));
+  DEBUG_PUTS(" Elements : \n");
+  
   DEBUG_PUTS("[");
   DEBUG_PUTX32(0);
   DEBUG_PUTS("] ");
