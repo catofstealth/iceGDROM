@@ -187,7 +187,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
   DEBUG_PUTS("\n");
   switch((mode>>1)&7) 
   {
-    case 0:
+    case 0: //any type
       if(!(mode & 0x10)) {
         /* Data select with "Any type"; check for data track and assume
     mode2/form1 for XA and mode1 otherwise */
@@ -206,31 +206,31 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
       skip_after = 288/2;
       }
       break;
-    case 1:
+    case 1: //CD-DA
       if (rmode & 4)
       {
-        DEBUG_PUTS("imgfile_seek_internal Case 1\n");
+        DEBUG_PUTS("imgfile_seek_internal Mode CD-DA\n");
         return false;
       }
       break;
-    case 2:
+    case 2: //Mode 1
       skip_after = 288/2;
-    case 3:
+    case 3: // Mode 2
       /* FALLTHRU */
       if (!(rmode & 4) || imgheader.disk_type == 0x20)
       {
-        DEBUG_PUTS("imgfile_seek_internal Case 3\n");
+        DEBUG_PUTS("imgfile_seek_internal Mode 2\n");
         return false;
       }
       break;
-    case 4:
+    case 4: //Mode 2 Form 1
       skip_after = 276/2;
       /* FALLTHRU */
-    case 5:
+    case 5: //Mode 2 Form 2
       skip_after += 4/2;
       if (!(rmode & 4) || imgheader.disk_type != 0x20)
       {
-        DEBUG_PUTS("imgfile_seek_internal Case 5\n");
+        DEBUG_PUTS("imgfile_seek_internal Mode 2 Form 2\n");
         return false;
       }
       if (!(mode & 0x40))
@@ -238,7 +238,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
         skip_before = 8/2;
       }
       break;
-    case 6:
+    case 6: //Mode 2 non XA
       break;
     default:
       DEBUG_PUTS("imgfile_seek_internal default response, failing \n");
