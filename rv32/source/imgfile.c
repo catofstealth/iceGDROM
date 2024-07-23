@@ -184,7 +184,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
         if (!(rmode & 4))
         {
           DEBUG_PUTS("imgfile_seek_internal data select with any type with incorrect mode? (4) \n");
-          retrun false;
+          return false;
         }
         if (imgheader.disk_type == 0x20) {
           skip_after = 280/2;
