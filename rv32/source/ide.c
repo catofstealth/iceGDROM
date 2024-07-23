@@ -467,6 +467,10 @@ static void service_cd_read_cont()
     return;
   }
 
+  DEBUG_PUTS("preload_status ");
+  DEBUG_PUTX(preload_status); //0: none 1: available, 2: failed
+    DEBUG_PUTS("\n"); 
+
   if (preload_status == PRELOAD_AVAILABLE)
   {
     IDE_IOCONTROL = 0x80;
