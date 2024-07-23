@@ -423,32 +423,6 @@ static uint32_t get_fad(const uint8_t *bytes, bool msf)
   }
 }
 
- void read_toc()
-{
-  service_get_toc();
-  //loop IDE_DATA_BUFFER
-  DEBUG_PUTS("GDROM TOC Data : \n");
-  DEBUG_PUTS("[");
-  DEBUG_PUTX32(0);
-  DEBUG_PUTS("] ");
-
-  for(uint32_t x = 0; x < sizeof(IDE_DATA_BUFFER); x++)
-  {
-      DEBUG_PUTX(IDE_DATA_BUFFER[x]);
-      DEBUG_PUTS(" ");
-
-    if((x+1) % 16 == 0)
-    {
-      DEBUG_PUTS("\n");
-      DEBUG_PUTS("[");
-      DEBUG_PUTX32(x);
-      DEBUG_PUTS("] ");
-    }
-  }
-
-  DEBUG_PUTS("\n");
-}
-
 static void service_get_toc()
 {
   uint8_t s = packet.get_toc.select;
@@ -712,4 +686,30 @@ void set_disk_type(uint8_t type)
 {
   disk_type = type;
   set_secnr();
+}
+
+void read_toc()
+{
+  service_get_toc();
+  //loop IDE_DATA_BUFFER
+  DEBUG_PUTS("GDROM TOC Data : \n");
+  DEBUG_PUTS("[");
+  DEBUG_PUTX32(0);
+  DEBUG_PUTS("] ");
+
+  for(uint32_t x = 0; x < sizeof(IDE_DATA_BUFFER); x++)
+  {
+      DEBUG_PUTX(IDE_DATA_BUFFER[x]);
+      DEBUG_PUTS(" ");
+
+    if((x+1) % 16 == 0)
+    {
+      DEBUG_PUTS("\n");
+      DEBUG_PUTS("[");
+      DEBUG_PUTX32(x);
+      DEBUG_PUTS("] ");
+    }
+  }
+
+  DEBUG_PUTS("\n");
 }
