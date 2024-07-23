@@ -180,6 +180,9 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
 
   uint8_t skip_before = 0, skip_after = 0;
 
+  DEBUG_PUTS("case input : ");
+  DEBUG_PUTX((mode>>1)&7);
+  DEBUG_PUTS("\n");
   switch((mode>>1)&7) 
   {
     case 0:
@@ -225,7 +228,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
       skip_after += 4/2;
       if (!(rmode & 4) || imgheader.disk_type != 0x20)
       {
-        //DEBUG_PUTS("imgfile_seek_internal Case 5\n");
+        DEBUG_PUTS("imgfile_seek_internal Case 5\n");
         return false;
       }
       if (!(mode & 0x40))
@@ -236,7 +239,7 @@ static bool imgfile_seek_internal(uint32_t sec, uint8_t mode, bool data)
     case 6:
       break;
     default:
-      //DEBUG_PUTS("imgfile_seek_internal default response, failing \n");
+      DEBUG_PUTS("imgfile_seek_internal default response, failing \n");
       return false;
   }
 

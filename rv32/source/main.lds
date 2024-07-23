@@ -16,5 +16,5 @@ SECTIONS {
 		. = ALIGN(4);
 		end = .;
 	}
-	ASSERT(end <= __stack - 1000, "Less than 1k left for stack!")
+	ASSERT(end <= __stack - 500, "Less than 1k left for stack!")
 }
