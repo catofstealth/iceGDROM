@@ -107,7 +107,7 @@ steps:
       tools/obj/makegdimg
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
-  condition: eq('${{ variables.bitstreamGenerated }}', true)
+  condition: eq(variables.bitstreamGenerated, true)
 
 
 - task: PublishBuildArtifacts@1
@@ -115,4 +115,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Artifacts'
     publishLocation: 'Container'
-  condition: eq('${{ variables.bitstreamGenerated }}', true)
+  condition: eq(variables.bitstreamGenerated, true)
