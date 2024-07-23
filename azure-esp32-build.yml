@@ -90,8 +90,11 @@ steps:
 
 - script: |
     FILE=fpga/obj/gdrom_hw_emulator.bin
-    if test -f "$FILE"; then
-        echo "##vso[task.setvariable variable=bitstreamGenerated;]true"
+    if [ -f $FILE ]; then
+      echo "File $FILE exists."
+      echo "##vso[task.setvariable variable=bitstreamGenerated;]true"
+    else
+      echo "File $FILE does not exist."
     fi
   displayName: 'Check for bitstream file creation'
 
