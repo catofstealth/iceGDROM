@@ -706,8 +706,8 @@ void read_toc()
   service_sectors_left = (( 0 << 8) | 1); //read one sector?
   
   //uint32_t blk = get_fad(packet.cd_read.start_addr, packet.cd_read.flags&1);
-  
-  uint8_t start_addr[3] = [(uint8_t) 0, (uint8_t) 0, (uint8_t) 0xACC10];
+  //1010 11001100 00010000 = ACC10
+  uint8_t start_addr[3] = {0xA, 0xCC, 0x10};
   uint32_t blk = get_fad(start_addr, 16&1); //offset from data is 200? Data in raw file at ACC10 onward, flags is struct 0010 000 0 should be ok for data read? need to test
   if (!imgfile_seek(blk, packet.cd_read.flags)) {
 #ifdef IDEDEBUG
