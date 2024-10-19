@@ -19,6 +19,7 @@ ARMCC = arm-elf-gcc -mlittle-endian -mcpu=arm7di -ffreestanding
 
 all :
 
+ci:
 
 flash :
 
