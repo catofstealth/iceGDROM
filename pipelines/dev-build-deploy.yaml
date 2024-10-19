@@ -66,7 +66,7 @@ steps:
 
 - script: |
     echo Adding Path
-    export PATH=$PATH:/opt/riscv/bin
+    export PATH=$PATH:/opt/riscv-32/bin
     export PATH=$PATH:/opt/makeip/bin
     # export PATH=$PATH:/opt/toolchain/sh-elf/bin
     # export PATH=$PATH:/opt/toolchain/arm-eabi/bin
@@ -80,7 +80,7 @@ steps:
 
 - script: |
     echo Adding Path
-    export PATH=$PATH:/opt/riscv/bin
+    export PATH=$PATH:/opt/riscv-32/bin
     export PATH=$PATH:/opt/makeip/bin
     # export PATH=$PATH:/opt/toolchain/sh-elf/bin
     # export PATH=$PATH:/opt/toolchain/sh-elf/libexec/gcc/sh-elf/9.3.0
