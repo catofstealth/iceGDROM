@@ -10,6 +10,7 @@ CFLAGS ?= -O2 -std=c99
 
 all : makegdimg
 
+ci : makegdimg
 
 flash :
 
