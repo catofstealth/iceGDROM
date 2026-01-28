@@ -343,8 +343,21 @@ bool fatfs_read_header(void *buf, uint16_t size, uint8_t blk)
 
 void fatfs_reset_filename()
 {
-  memset(filename+4, '0', 4);
-  fatfs_filenumber = 0;
+  // memset(filename+4, '0', 4);
+  // fatfs_filenumber = 0;
+  fatfs_set_filename_number(0);
+}
+
+void fatfs_set_filename_number(uint16_t num)
+{
+  fatfs_filenumber = num;
+  
+  /* Convert num to 4-digit string at filename+4 */
+  uint16_t divisor = 1000;
+  for (int i = 0; i < 4; i++) {
+    filename[4 + i] = '0' + (num / divisor) % 10;
+    divisor /= 10;
+  }
 }
 
 void fatfs_next_filename()
@@ -360,3 +373,19 @@ void fatfs_next_filename()
   }
   fatfs_filenumber++;
 }
+
+void fatfs_prev_filename()
+{
+  char *p = filename+8;
+  while (*--p >= '0') {
+    if (*p == '0') {
+      *p = '9';
+    } else {
+      (*p)--;
+      break;
+    }
+  }
+  fatfs_filenumber--;
+}
+
+

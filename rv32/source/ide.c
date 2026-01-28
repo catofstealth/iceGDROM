@@ -104,6 +104,11 @@ static union {
     uint8_t alloc_len_hi;
     uint8_t alloc_len_lo;
   } get_scd;
+  struct {
+    uint8_t cmd;
+    uint8_t action;
+    uint8_t payload[2];
+  } openmenu_cmd;
 } packet;
 
 static void finish_packet(uint8_t error) __attribute__((noinline));
@@ -238,6 +243,46 @@ static void do_cmd71()
   packet_data_last0(sizeof(cmd71_reply)/2);
 }
 
+
+static void do_openmenu_cmd()
+{
+  uint8_t action = packet.openmenu_cmd.action;
+
+  uint8_t h_byte = packet.openmenu_cmd.payload[0];
+  uint8_t l_byte = packet.openmenu_cmd.payload[1];
+
+  switch(action)
+  {
+    case 0x0:
+      uint8_t gdrom_ver[8] = { 0, 0, 9, 1, 0, 0, 14, 5 };
+      memcpy(IDE_DATA_BUFFER, &gdrom_ver, 8);
+      service_packet_data_last0(408/2);
+    break;
+
+    case 0x81:
+      //increase or decreate the image index
+      if(h_byte == 0x44)
+      {
+        fatfs_next_filename();
+      } 
+      else if (h_byte == 0x55)
+      {
+        fatfs_prev_filename();
+      }
+      finish_packet(0x50);
+    break;
+
+    case 0x82:
+      fatfs_set_filename_number(packet.openmenu_cmd.payload); //not sure on the swizzle here?
+      finish_packet(0x50);
+    break;
+    default:
+    DEBUG_PUTS("Unconfigured openmenu action ");
+    DEBUG_PUTX(action);
+    break;
+  }
+}
+
 static void do_req_error()
 {
   uint8_t i;
@@ -281,6 +326,10 @@ static void process_packet()
   case 0x40: /* CD_SCD */
     service_dma = (IDE_FEATURES & 1);
     service_mode = SERVICE_MODE_CMD;
+    break;
+
+  case 0x52: /* GDMenu Commands */
+    do_openmenu_cmd();
     break;
 
   default:
