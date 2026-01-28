@@ -273,7 +273,7 @@ static void do_openmenu_cmd()
     break;
 
     case 0x82:
-      fatfs_set_filename_number(packet.openmenu_cmd.payload); //not sure on the swizzle here?
+      fatfs_set_filename_number((packet.openmenu_cmd.payload[0] << 8) | packet.openmenu_cmd.payload[1]); //not sure on the swizzle here?
       finish_packet(0x50);
     break;
     default:
