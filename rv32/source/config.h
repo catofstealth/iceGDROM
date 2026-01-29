@@ -10,12 +10,12 @@
 
 /* Comment out to enable debug printouts on serial port */
 
-#define NDEBUG
+/* #define NDEBUG */
 
 
 /* Uncomment to get extra IDE debug */
 
-/* #define IDEDEBUG */
+#define IDEDEBUG
 
 
 /* Set to desired baudrate for serial debug output */
