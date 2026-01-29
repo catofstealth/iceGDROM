@@ -326,12 +326,9 @@ static void process_packet()
   case 0x21: /* CD_SEEK */
   case 0x30: /* CD_READ */
   case 0x40: /* CD_SCD */
+  case 0x52:
     service_dma = (IDE_FEATURES & 1);
     service_mode = SERVICE_MODE_CMD;
-    break;
-
-  case 0x52: /* GDMenu Commands */
-    do_openmenu_cmd();
     break;
 
   default:
@@ -685,6 +682,9 @@ static void service_cmd()
     break;
   case 0x40: /* CD_SCD */
     service_cd_scd();
+    break;
+  case 0x52: /* GDMenu Commands */
+    do_openmenu_cmd();
     break;
   default:
     service_finish_packet(0x04); /* Abort */
