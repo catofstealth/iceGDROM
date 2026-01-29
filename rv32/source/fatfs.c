@@ -128,12 +128,14 @@ static bool check_root_block(uint32_t part_start)
   if (data_block[82] != 'F' || data_block[83] != 'A' || data_block[84] != 'T')
     return false;
 
+  DEBUG_PUTS("FAT FS Found\n");
   /* Check required parameters */
   if (data_block[11] != 0 || data_block[12] != 2 || /* 512 bytes per sector */
       (data_block[14] == 0 && data_block[15] == 0) || /* reserved sectors > 0 */
       data_block[16] != 2) /* fat count */
     return false;
 
+	DEBUG_PUTS("Got here\n");
   uint8_t i = 0, n = 1;
   do {
     if (data_block[13] == n)
@@ -146,6 +148,7 @@ static bool check_root_block(uint32_t part_start)
   cluster_shift=i;
   blocks_per_cluster = n;
 
+	DEBUG_PUTS("Got here\n");
   uint16_t rds = data_block[17] + (data_block[18]<<8); /* rootDirEntryCount */
   root_dir_entries = rds;
   rds = (rds >> 4) + ((((uint8_t)rds)&0xf)? 1:0);
