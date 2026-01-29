@@ -24,6 +24,8 @@ add-verilog-define = -p 'verilog_defaults -add -D$(1)'
 
 all : gdrom_hw_emulator.bin
 
+ci : gdrom_hw_emulator.bin
+
 flash : gdrom_hw_emulator.bin
 	iceprog $(if $(ICEPROG_DEVICE),-d,) $(ICEPROG_DEVICE) $(if $(ICEPROG_INTERFACE),-I,) $(ICEPROG_INTERFACE) $<
 
