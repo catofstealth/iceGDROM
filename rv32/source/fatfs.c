@@ -123,7 +123,7 @@ static bool check_root_block(uint32_t part_start)
   if(data_block[0x1fe] != 0x55 ||
      data_block[0x1ff] != 0xaa)
     return false;
-
+  DEBUG_PUTS("Checking FS type\n");
   /* Check file system type */
   if (data_block[82] != 'F' || data_block[83] != 'A' || data_block[84] != 'T')
     return false;
