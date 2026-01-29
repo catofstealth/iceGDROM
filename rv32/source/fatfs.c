@@ -190,6 +190,7 @@ bool fatfs_mount()
   if (check_root_block(0))
     return true;
   /* Not a valid FAT root block at 0, check for partition table */
+  DEBUG_PUTS("Checking for partitions\n");
   uint8_t *data_block = read_block(0);
   if(!data_block ||
      data_block[0x1fe] != 0x55 ||
