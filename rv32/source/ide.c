@@ -256,7 +256,7 @@ static void do_openmenu_cmd()
     case 0x0:
       uint8_t gdrom_ver[8] = { 0, 0, 9, 1, 0, 0, 14, 5 };
       memcpy(IDE_DATA_BUFFER, &gdrom_ver, 8);
-      service_packet_data_last0(408/2);
+      finish_packet(0x50);
     break;
 
     case 0x81:
