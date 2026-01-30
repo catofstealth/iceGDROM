@@ -354,6 +354,7 @@ void fatfs_reset_filename()
 
 void fatfs_set_filename_number(uint16_t num)
 {
+  DEBUG_PUTS("Set file number\n");
   fatfs_filenumber = num;
   
   /* Convert num to 4-digit string at filename+4 */
@@ -362,10 +363,15 @@ void fatfs_set_filename_number(uint16_t num)
     filename[4 + i] = '0' + (num / divisor) % 10;
     divisor /= 10;
   }
+  DEBUG_PUTS("Filename is now ");
+  DEBUG_PUTS(filename);
+  DEBUG_PUTS("\n");
 }
 
 void fatfs_next_filename()
 {
+  DEBUG_PUTS("Increase file number\n");
+
   char *p = filename+8;
   while (*--p <= '9') {
     if (*p == '9') {
@@ -376,10 +382,13 @@ void fatfs_next_filename()
     }
   }
   fatfs_filenumber++;
+  DEBUG_PUTS(fatfs_filenumber);
+  DEBUG_PUTS("\n");
 }
 
 void fatfs_prev_filename()
 {
+  DEBUG_PUTS("Decrease file number\n");
   char *p = filename+8;
   while (*--p >= '0') {
     if (*p == '0') {
@@ -390,6 +399,8 @@ void fatfs_prev_filename()
     }
   }
   fatfs_filenumber--;
+  DEBUG_PUTS(fatfs_filenumber);
+  DEBUG_PUTS("\n");
 }
 
 
