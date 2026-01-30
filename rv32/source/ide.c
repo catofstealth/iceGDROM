@@ -262,27 +262,27 @@ static void do_openmenu_cmd()
 
     case 0x81:
       //increase or decreate the image index
-	  DEBUG_PUTS("0x52 0x81 received, change image");
+	  DEBUG_PUTS("0x52 0x81 received, change image\n");
       if(h_byte == 0x44)
       {
-        fatfs_next_filename();
+        fatfs_prev_filename();
       } 
       else if (h_byte == 0x55)
       {
-        fatfs_prev_filename();
+        fatfs_next_filename();
       }
       imgfile_init();
       finish_packet_ok();
     break;
 
     case 0x82:
-	  DEBUG_PUTS("0x52 0x82 received set image index");
+	  DEBUG_PUTS("0x52 0x82 received set image index\n");
       fatfs_set_filename_number((packet.openmenu_cmd.payload[0] << 8) | packet.openmenu_cmd.payload[1]); //not sure on the swizzle here?
       imgfile_init();
       finish_packet_ok();
     break;
     default:
-    DEBUG_PUTS("Unconfigured openmenu action ");
+    DEBUG_PUTS("Unconfigured openmenu action\n");
     DEBUG_PUTX(action);
 		finish_packet_ok();
     break;
