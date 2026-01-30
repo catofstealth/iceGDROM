@@ -243,6 +243,13 @@ static void do_cmd71()
   packet_data_last0(sizeof(cmd71_reply)/2);
 }
 
+static bool find_file()
+{
+  if (fatfs_read_rootdir())
+    return true;
+  fatfs_reset_filename();
+  return fatfs_read_rootdir();
+}
 
 static void do_openmenu_cmd()
 {
@@ -271,7 +278,8 @@ static void do_openmenu_cmd()
       {
         fatfs_next_filename();
       }
-	  find_imgfile();
+	  static bool find_imgfile()
+      find_imgfile();
       imgfile_init();
       finish_packet_ok();
     break;
@@ -292,6 +300,8 @@ static void do_openmenu_cmd()
     break;
   }
 }
+
+
 
 static void do_req_error()
 {
