@@ -251,6 +251,12 @@ static bool find_file()
   return fatfs_read_rootdir();
 }
 
+static bool switch_image()
+{
+	find_imgfile();
+    imgfile_init();
+}
+
 static void do_openmenu_cmd()
 {
   uint8_t action = packet.openmenu_cmd.action;
@@ -264,7 +270,6 @@ static void do_openmenu_cmd()
       uint8_t gdrom_ver[8] = { 0, 0, 9, 1, 0, 0, 14, 5 };
       memcpy(IDE_DATA_BUFFER, &gdrom_ver, 8);
       packet_data_last0(sizeof(gdrom_ver)/2);
-      //finish_packet(0x50);
     break;
 
     case 0x81:
@@ -278,9 +283,7 @@ static void do_openmenu_cmd()
       {
         fatfs_next_filename();
       }
-	  static bool find_imgfile()
-      find_imgfile();
-      imgfile_init();
+      switch_image();
       finish_packet_ok();
     break;
 
@@ -289,8 +292,7 @@ static void do_openmenu_cmd()
 	  DEBUG_PUTX(packet.openmenu_cmd.payload[0]);
 	  DEBUG_PUTX(packet.openmenu_cmd.payload[1]);
       fatfs_set_filename_number((packet.openmenu_cmd.payload[0] << 8) | packet.openmenu_cmd.payload[1]); //not sure on the swizzle here?
-	  find_imgfile();
-      imgfile_init();
+	  switch_image();
       finish_packet_ok();
     break;
     default:
