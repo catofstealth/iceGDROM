@@ -488,7 +488,7 @@ static void service_openmenu_cmd()
 	  DEBUG_PUTS("0x52 0x82 received set image index\n");
 	  DEBUG_PUTX(packet.openmenu_cmd.payload[0]);
 	  DEBUG_PUTX(packet.openmenu_cmd.payload[1]);
-      fatfs_set_filename_number((packet.openmenu_cmd.payload[1] << 8) | packet.openmenu_cmd.payload[0]); //not sure on the swizzle here?
+      fatfs_set_filename_number(((packet.openmenu_cmd.payload[1] << 8) | packet.openmenu_cmd.payload[0] - 1)); //We use zero indexing, GDMenu does not...
 	  switch_image();
       service_finish_packet(0);
     break;
