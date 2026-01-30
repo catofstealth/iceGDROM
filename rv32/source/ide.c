@@ -253,10 +253,14 @@ static bool find_imgfile()
 
 static bool switch_image()
 {
-	find_imgfile();
-    imgfile_init();
-	set_disk_type(imgheader.disk_type);
-    PORTA = fatfs_filenumber;
+	if(find_imgfile() && imgfile_init())
+	{
+	  set_disk_type(imgheader.disk_type);
+      PORTA = fatfs_filenumber;	
+	} else {
+	  fatfs_reset_filename();
+      PORTA = ~0;
+	}
 }
 
 static void do_openmenu_cmd()
