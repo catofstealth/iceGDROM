@@ -255,6 +255,8 @@ static bool switch_image()
 {
 	find_imgfile();
     imgfile_init();
+	set_disk_type(imgheader.disk_type);
+    PORTA = fatfs_filenumber;
 }
 
 static void do_openmenu_cmd()
