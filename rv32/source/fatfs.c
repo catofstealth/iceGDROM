@@ -382,7 +382,7 @@ void fatfs_next_filename()
     }
   }
   fatfs_filenumber++;
-  DEBUG_PUTS(fatfs_filenumber);
+  DEBUG_PUTX(fatfs_filenumber);
   DEBUG_PUTS("\n");
 }
 
@@ -399,7 +399,7 @@ void fatfs_prev_filename()
     }
   }
   fatfs_filenumber--;
-  DEBUG_PUTS(fatfs_filenumber);
+  DEBUG_PUTX(fatfs_filenumber);
   DEBUG_PUTS("\n");
 }
 
