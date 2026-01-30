@@ -243,76 +243,6 @@ static void do_cmd71()
   packet_data_last0(sizeof(cmd71_reply)/2);
 }
 
-static bool find_imgfile()
-{
-  if (fatfs_read_rootdir())
-    return true;
-  fatfs_reset_filename();
-  return fatfs_read_rootdir();
-}
-
-static bool switch_image()
-{
-	if(find_imgfile() && imgfile_init())
-	{
-	  set_disk_type(imgheader.disk_type);
-      PORTA = fatfs_filenumber;	
-	} else {
-	  fatfs_reset_filename();
-      PORTA = ~0;
-	}
-}
-
-static void do_openmenu_cmd()
-{
-  uint8_t action = packet.openmenu_cmd.action;
-
-  uint8_t h_byte = packet.openmenu_cmd.payload[0];
-  uint8_t l_byte = packet.openmenu_cmd.payload[1];
-
-  switch(action)
-  {
-    case 0x0:
-      uint8_t gdrom_ver[8] = { 0, 0, 9, 1, 0, 0, 14, 5 };
-      memcpy(IDE_DATA_BUFFER, &gdrom_ver, 8);
-      packet_data_last0(sizeof(gdrom_ver)/2);
-    break;
-
-    case 0x81:
-      //increase or decreate the image index
-	  DEBUG_PUTS("0x52 0x81 received, change image\n");
-	  //we prempt disk switching so its already incremented after loading. this might be a bit weird
-	  switch_image();
-      if(h_byte == 0x44)
-      {
-        fatfs_prev_filename();
-      } 
-      else if (h_byte == 0x55)
-      {
-        fatfs_next_filename();
-      }
-      
-      finish_packet_ok();
-    break;
-
-    case 0x82:
-	  DEBUG_PUTS("0x52 0x82 received set image index\n");
-	  DEBUG_PUTX(packet.openmenu_cmd.payload[0]);
-	  DEBUG_PUTX(packet.openmenu_cmd.payload[1]);
-      fatfs_set_filename_number((packet.openmenu_cmd.payload[1] << 8) | packet.openmenu_cmd.payload[0]); //not sure on the swizzle here?
-	  switch_image();
-      finish_packet_ok();
-    break;
-    default:
-    DEBUG_PUTS("Unconfigured openmenu action\n");
-    DEBUG_PUTX(action);
-		finish_packet_ok();
-    break;
-  }
-}
-
-
-
 static void do_req_error()
 {
   uint8_t i;
@@ -498,6 +428,80 @@ static uint32_t get_fad(const uint8_t *bytes, bool msf)
     return u.fad;
   }
 }
+
+
+
+
+static bool find_imgfile()
+{
+  if (fatfs_read_rootdir())
+    return true;
+  fatfs_reset_filename();
+  return fatfs_read_rootdir();
+}
+
+static bool switch_image()
+{
+	if(find_imgfile() && imgfile_init())
+	{
+	  set_disk_type(imgheader.disk_type);
+      PORTA = fatfs_filenumber;	
+	} else {
+	  fatfs_reset_filename();
+      PORTA = ~0;
+	}
+}
+
+static void service_openmenu_cmd()
+{
+  uint8_t action = packet.openmenu_cmd.action;
+
+  uint8_t h_byte = packet.openmenu_cmd.payload[0];
+  uint8_t l_byte = packet.openmenu_cmd.payload[1];
+
+  switch(action)
+  {
+    case 0x0:
+      uint8_t gdrom_ver[8] = { 0, 0, 9, 1, 0, 0, 14, 5 };
+      memcpy(IDE_DATA_BUFFER, &gdrom_ver, 8);
+      service_packet_data_last0(sizeof(gdrom_ver)/2);
+    break;
+
+    case 0x81:
+      //increase or decreate the image index
+	  DEBUG_PUTS("0x52 0x81 received, change image\n");
+	  //we prempt disk switching so its already incremented after loading. this might be a bit weird
+	  switch_image();
+      if(h_byte == 0x44)
+      {
+        fatfs_prev_filename();
+      } 
+      else if (h_byte == 0x55)
+      {
+        fatfs_next_filename();
+      }
+      
+      service_finish_packet(0);
+    break;
+
+    case 0x82:
+	  DEBUG_PUTS("0x52 0x82 received set image index\n");
+	  DEBUG_PUTX(packet.openmenu_cmd.payload[0]);
+	  DEBUG_PUTX(packet.openmenu_cmd.payload[1]);
+      fatfs_set_filename_number((packet.openmenu_cmd.payload[1] << 8) | packet.openmenu_cmd.payload[0]); //not sure on the swizzle here?
+	  switch_image();
+      service_finish_packet(0);
+    break;
+    default:
+    DEBUG_PUTS("Unconfigured openmenu action\n");
+    DEBUG_PUTX(action);
+		service_finish_packet(0x4); //abort
+    break;
+  }
+}
+
+
+
 
 static void service_get_toc()
 {
@@ -712,7 +716,7 @@ static void service_cmd()
     service_cd_scd();
     break;
   case 0x52: /* GDMenu Commands */
-    do_openmenu_cmd();
+    service_openmenu_cmd();
     break;
   default:
     service_finish_packet(0x04); /* Abort */
