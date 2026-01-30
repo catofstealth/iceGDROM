@@ -262,6 +262,7 @@ static void do_openmenu_cmd()
 
     case 0x81:
       //increase or decreate the image index
+	  DEBUG_PUTS("0x52 0x81 received, change image");
       if(h_byte == 0x44)
       {
         fatfs_next_filename();
@@ -274,6 +275,7 @@ static void do_openmenu_cmd()
     break;
 
     case 0x82:
+	  DEBUG_PUTS("0x52 0x82 received set image index");
       fatfs_set_filename_number((packet.openmenu_cmd.payload[0] << 8) | packet.openmenu_cmd.payload[1]); //not sure on the swizzle here?
       finish_packet_ok();
     break;
