@@ -275,6 +275,8 @@ static void do_openmenu_cmd()
     case 0x81:
       //increase or decreate the image index
 	  DEBUG_PUTS("0x52 0x81 received, change image\n");
+	  //we prempt disk switching so its already incremented after loading. this might be a bit weird
+	  switch_image();
       if(h_byte == 0x44)
       {
         fatfs_prev_filename();
@@ -283,7 +285,7 @@ static void do_openmenu_cmd()
       {
         fatfs_next_filename();
       }
-      switch_image();
+      
       finish_packet_ok();
     break;
 
