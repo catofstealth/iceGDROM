@@ -243,7 +243,7 @@ static void do_cmd71()
   packet_data_last0(sizeof(cmd71_reply)/2);
 }
 
-static bool find_file()
+static bool find_imgfile()
 {
   if (fatfs_read_rootdir())
     return true;
