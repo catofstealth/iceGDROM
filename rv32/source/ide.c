@@ -271,13 +271,17 @@ static void do_openmenu_cmd()
       {
         fatfs_next_filename();
       }
+	  find_imgfile();
       imgfile_init();
       finish_packet_ok();
     break;
 
     case 0x82:
 	  DEBUG_PUTS("0x52 0x82 received set image index\n");
+	  DEBUG_PUTX(packet.openmenu_cmd.payload[0]);
+	  DEBUG_PUTX(packet.openmenu_cmd.payload[1]);
       fatfs_set_filename_number((packet.openmenu_cmd.payload[0] << 8) | packet.openmenu_cmd.payload[1]); //not sure on the swizzle here?
+	  find_imgfile();
       imgfile_init();
       finish_packet_ok();
     break;
