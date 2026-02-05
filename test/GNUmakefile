@@ -4,7 +4,7 @@ SRC := $(SRCDIR)source
 
 SOURCES_C = main.c cdops.c aica.c pseudorandom.c
 SOURCES_S = video.s syscall.s
-SOURCES_TEST = benchmark.c dmatest.c
+SOURCES_TEST = benchmark.c dmatest.c openmenu.c
 
 OBJ = $(SOURCES_C:%.c=%.o) $(SOURCES_S:%.s=%.o)
 OBJ_TEST = $(SOURCES_TEST:%.c=%.o)
@@ -39,6 +39,7 @@ CDDATEST.GI0 : cddatest.gdi cddatest.isoa cddatest.isob testdata.bin dummydata.b
 	$(TOOLS_DIR)/makegdimg $< $@
 
 OPENMENU.GI0 : openmenu.gdi openmenu.isoa openmenu.isob testdata.bin dummydata.bin
+	$(TOOLS_DIR)/makegdimg $< $@
 
 %.gdi :
 	( echo 4; echo 1 0 4 2048 dummydata.bin 0; echo 2 45000 4 2048 $*.isoa 0; echo 3 450016 4 2048 $*.isob 0; echo 4 500000 4 2048 testdata.bin 0 ) >$@
