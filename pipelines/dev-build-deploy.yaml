@@ -111,8 +111,9 @@ steps:
     Contents: |
       fpga/GNUmakefile
       fpga/obj/gdrom_hw_emulator.bin
-      test/obj/*.GI0
-      test/obj/*.gdi
+      test/obj/benchmark.*
+      test/obj/cddatest.*
+      test/obj/cddatest.*
       tools/obj/makegdimg
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
