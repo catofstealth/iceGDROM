@@ -149,6 +149,17 @@ steps:
     CleanTargetFolder: false
   condition: eq(variables.bitstreamGenerated, true)
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      test/obj/openmenu.*
+      test/obj/dummydata.bin
+      test/obj/testdata.bin
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/openmenu'
+    CleanTargetFolder: false
+  condition: eq(variables.bitstreamGenerated, true)
+  
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
