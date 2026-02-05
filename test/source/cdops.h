@@ -19,3 +19,4 @@ extern int cdops_read_sectors_pio(char *buf, int sec, int num);
 extern int cdops_read_sectors_dma(char *buf, int sec, int num);
 extern int cdops_play_cdda_sectors(int start, int stop, int reps);
 extern int cdops_stop_cdda();
+extern int cdops_exec_cmd(int cmd, void *param);
