@@ -61,7 +61,7 @@ static int cdops_wait_cmd(int f)
   return (n>0? 0 : n);
 }
 
-static int cdops_exec_cmd(int cmd, void *param)
+int cdops_exec_cmd(int cmd, void *param)
 {
   int f = cdops_send_cmd(cmd, param);
   return cdops_wait_cmd(f);
