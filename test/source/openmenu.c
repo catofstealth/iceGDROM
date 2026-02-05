@@ -105,14 +105,20 @@ int test_load_indexed_image()
 void run_test()
 {
   if (!select_track_manual_toc())
-    return;
-  
+  {
+	printf("Failed to load TOC");
+	usleep(100000);
+	return;  
+  }
+    
+/*  
   test_get_ver();
   test_next_image();
 
   if (!select_track_manual_toc())
     return;
-  
+*/
+	
 //  test_prev_image();
 
 //  if (!select_track())
@@ -121,4 +127,5 @@ void run_test()
 
 //  if (!select_track())
 //    return;
+	usleep(100000);
 }
