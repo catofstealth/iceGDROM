@@ -111,14 +111,37 @@ steps:
     Contents: |
       fpga/GNUmakefile
       fpga/obj/gdrom_hw_emulator.bin
-      test/obj/benchmark.*
-      test/obj/cddatest.*
-      test/obj/cddatest.*
       tools/obj/makegdimg
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
   condition: eq(variables.bitstreamGenerated, true)
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      test/obj/benchmark.*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/benchmark'
+    CleanTargetFolder: false
+  condition: eq(variables.bitstreamGenerated, true)
+
+  - task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      test/obj/cddatest.*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/cddatest'
+    CleanTargetFolder: false
+  condition: eq(variables.bitstreamGenerated, true)
+
+  - task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      test/obj/dmatest.*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/dmatest.'
+    CleanTargetFolder: false
+  condition: eq(variables.bitstreamGenerated, true)
 
 - task: PublishBuildArtifacts@1
   inputs:
