@@ -145,7 +145,7 @@ steps:
       test/obj/dmatest.*
       test/obj/dummydata.bin
       test/obj/testdata.bin
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/dmatest.'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/dmatest'
     CleanTargetFolder: false
   condition: eq(variables.bitstreamGenerated, true)
 
