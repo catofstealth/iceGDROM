@@ -121,6 +121,8 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       test/obj/benchmark.*
+      test/obj/dummydata.bin
+      test/obj/testdata.bin
     TargetFolder: '$(Build.ArtifactStagingDirectory)/benchmark'
     CleanTargetFolder: false
   condition: eq(variables.bitstreamGenerated, true)
@@ -130,6 +132,8 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       test/obj/cddatest.*
+      test/obj/dummydata.bin
+      test/obj/testdata.bin
     TargetFolder: '$(Build.ArtifactStagingDirectory)/cddatest'
     CleanTargetFolder: false
   condition: eq(variables.bitstreamGenerated, true)
@@ -139,6 +143,8 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
       test/obj/dmatest.*
+      test/obj/dummydata.bin
+      test/obj/testdata.bin
     TargetFolder: '$(Build.ArtifactStagingDirectory)/dmatest.'
     CleanTargetFolder: false
   condition: eq(variables.bitstreamGenerated, true)
