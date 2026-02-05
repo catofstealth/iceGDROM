@@ -19,13 +19,13 @@ ARMCC = arm-eabi-gcc -mlittle-endian -mcpu=arm7di -ffreestanding
 
 all :
 
-ci : BENCHMARK.GI0 DMATEST.GI0 CDDATEST.GI0
+ci : BENCHMARK.GI0 DMATEST.GI0 CDDATEST.GI0 OPENMENU.GI0
 
 flash :
 
 upload :
 
-tests : BENCHMARK.GI0 DMATEST.GI0 CDDATEST.GI0
+tests : BENCHMARK.GI0 DMATEST.GI0 CDDATEST.GI0 OPENMENU.GI0
 
 .SECONDARY:
 
@@ -37,6 +37,8 @@ DMATEST.GI0 : dmatest.gdi dmatest.isoa dmatest.isob testdata.bin dummydata.bin
 
 CDDATEST.GI0 : cddatest.gdi cddatest.isoa cddatest.isob testdata.bin dummydata.bin
 	$(TOOLS_DIR)/makegdimg $< $@
+
+OPENMENU.GI0 : openmenu.gdi openmenu.isoa openmenu.isob testdata.bin dummydata.bin
 
 %.gdi :
 	( echo 4; echo 1 0 4 2048 dummydata.bin 0; echo 2 45000 4 2048 $*.isoa 0; echo 3 450016 4 2048 $*.isob 0; echo 4 500000 4 2048 testdata.bin 0 ) >$@
